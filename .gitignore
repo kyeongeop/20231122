@@ -1,0 +1,8 @@
+/build/
+/demo/
+/*.db
+/*.db-shm
+/*.db-wal
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
