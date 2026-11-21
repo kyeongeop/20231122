@@ -1,0 +1,10 @@
+{
+  "correlation_id": "LFI-LINC-0003",
+  "payload": "php://filter/convert.base64-encode/resource=/srv/app/config/db.yaml",
+  "trigger_file": "internal/web/template.go",
+  "trigger_line": 56,
+  "trigger_symbol": "loadTemplate",
+  "access_verdict": "permit",
+  "access_rule": "stream-wrapper allowlist missing php://filter",
+  "log_file": "/var/log/app/access-2026-11-21.log",
+  "log_line": 130

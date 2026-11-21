@@ -1,0 +1,14 @@
+# Build artifacts
+bin/
+
+# Generated review databases
+artifacts/*.sqlite
+artifacts/*.sqlite-wal
+artifacts/*.sqlite-shm
+
+# libFuzzer findings and Go fuzz cache
+fuzz/artifacts/
+internal/parse/testdata/fuzz/
+
+# Local toolchain/linker scripts
+*.ld

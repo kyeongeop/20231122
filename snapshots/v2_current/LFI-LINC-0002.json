@@ -1,0 +1,24 @@
+{
+  "schema": "lfi-evidence/v2",
+  "incident": {
+    "correlation_id": "LFI-LINC-0002",
+    "attack": {
+      "input": "....//....//....//etc/shadow",
+      "encoding": "double-encoding-normalized"
+    },
+    "trigger": {
+      "file": "internal/web/fileserver.go",
+      "line": 104,
+      "symbol": "resolveTemplatePath"
+    },
+    "permission": {
+      "decision": "deny",
+      "rule": "deny-list /etc/shadow"
+    },
+    "log": {
+      "path": "/var/log/app/access-2026-11-21.log",
+      "line": 12188,
+      "snippet": "GET /render?tpl=....//....//....//etc/shadow 403 blocked"
+    }
+  }
+}

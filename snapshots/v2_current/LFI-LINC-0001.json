@@ -1,0 +1,24 @@
+{
+  "schema": "lfi-evidence/v2",
+  "incident": {
+    "correlation_id": "LFI-LINC-0001",
+    "attack": {
+      "input": "../../../../etc/passwd",
+      "encoding": "plain"
+    },
+    "trigger": {
+      "file": "internal/web/fileserver.go",
+      "line": 87,
+      "symbol": "ServeFile"
+    },
+    "permission": {
+      "decision": "permit",
+      "rule": "path-prefix=/var/www/uploads (bypassed via traversal)"
+    },
+    "log": {
+      "path": "/var/log/app/access-2026-11-21.log",
+      "line": 12041,
+      "snippet": "GET /fetch?name=../../../../etc/passwd 200 bytes=1349"
+    }
+  }
+}

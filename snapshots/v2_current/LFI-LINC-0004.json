@@ -1,0 +1,24 @@
+{
+  "schema": "lfi-evidence/v2",
+  "incident": {
+    "correlation_id": "LFI-LINC-0004",
+    "attack": {
+      "input": "/proc/self/environ",
+      "encoding": "plain"
+    },
+    "trigger": {
+      "file": "internal/web/debughandler.go",
+      "line": 42,
+      "symbol": "DumpEnv"
+    },
+    "permission": {
+      "decision": "allow",
+      "rule": "debug-role=admin (no role bound in request)"
+    },
+    "log": {
+      "path": "/var/log/app/debug-2026-11-21.log",
+      "line": 88,
+      "snippet": "GET /debug/env?path=/proc/self/environ 200"
+    }
+  }
+}

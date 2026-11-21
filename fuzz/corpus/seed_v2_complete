@@ -1,0 +1,1 @@
+{"schema":"lfi-evidence/v2","incident":{"correlation_id":"LFI-OK","permission":{"decision":"deny"}}}

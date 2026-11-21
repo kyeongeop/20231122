@@ -1,0 +1,12 @@
+{
+  "correlation_id": "LFI-LINC-0001",
+  "payload": "../../../../etc/passwd",
+  "trigger_file": "internal/web/fileserver.go",
+  "trigger_line": 87,
+  "trigger_symbol": "ServeFile",
+  "access_verdict": "permit",
+  "access_rule": "path-prefix=/var/www/uploads (bypassed via traversal)",
+  "log_file": "/var/log/app/access-2026-11-21.log",
+  "log_line": 12041,
+  "log_evidence": "GET /fetch?name=../../../../etc/passwd 200 bytes=1349"
+}

