@@ -1,0 +1,86 @@
+[
+  {
+    "name": "primary_cancel",
+    "role": "primary",
+    "description": "Conflicting aliases are submitted, then one candidate is canceled mid-run; exact replays follow the cancellation.",
+    "cancel_at_step": 3,
+    "steps": [
+      {"id": "p-submit-blue", "kind": "submit", "alias": "/deploy/api", "target": "/srv/blue"},
+      {"id": "p-submit-green", "kind": "submit", "alias": "/deploy//api/", "target": "/srv/green/"},
+      {"id": "p-cancel-green", "kind": "cancel", "cancel_id": "p-submit-green"},
+      {"id": "p-submit-blue", "kind": "submit", "alias": "/deploy/api", "target": "/srv/blue"},
+      {"id": "p-submit-green", "kind": "submit", "alias": "/deploy//api/", "target": "/srv/green/"},
+      {"id": "p-cancel-green", "kind": "cancel", "cancel_id": "p-submit-green"}
+    ],
+    "expect": {
+      "conflict_steps": [2],
+      "cancel_steps": [3],
+      "duplicate_noop_steps": [4, 5, 6],
+      "final_alias": "/deploy/api",
+      "final_target": "/srv/blue",
+      "conflict_free": true
+    }
+  },
+  {
+    "name": "control_cancel",
+    "role": "control",
+    "description": "The same mid-run cancellation position, but the two submissions use distinct aliases and cannot conflict.",
+    "cancel_at_step": 3,
+    "steps": [
+      {"id": "c-submit-blue", "kind": "submit", "alias": "/deploy/api", "target": "/srv/blue"},
+      {"id": "c-submit-green", "kind": "submit", "alias": "/deploy//green/", "target": "/srv/green/"},
+      {"id": "c-cancel-green", "kind": "cancel", "cancel_id": "c-submit-green"},
+      {"id": "c-submit-blue", "kind": "submit", "alias": "/deploy/api", "target": "/srv/blue"}
+    ],
+    "expect": {
+      "conflict_steps": [],
+      "cancel_steps": [3],
+      "duplicate_noop_steps": [4],
+      "final_alias": "/deploy/api",
+      "final_target": "/srv/blue",
+      "conflict_free": true
+    }
+  },
+  {
+    "name": "order_swap",
+    "role": "order_probe",
+    "description": "The conflicting submissions are reversed. Cancellation still targets the green submission by operation id.",
+    "cancel_at_step": 3,
+    "steps": [
+      {"id": "o-submit-green", "kind": "submit", "alias": "/deploy//api/", "target": "/srv/green/"},
+      {"id": "o-submit-blue", "kind": "submit", "alias": "/deploy/api", "target": "/srv/blue"},
+      {"id": "o-cancel-green", "kind": "cancel", "cancel_id": "o-submit-green"},
+      {"id": "o-submit-blue", "kind": "submit", "alias": "/deploy/api", "target": "/srv/blue"}
+    ],
+    "expect": {
+      "conflict_steps": [2],
+      "cancel_steps": [3],
+      "duplicate_noop_steps": [4],
+      "final_alias": "/deploy/api",
+      "final_target": "/srv/blue",
+      "conflict_free": true
+    }
+  },
+  {
+    "name": "duplicate_probe",
+    "role": "duplicate_probe",
+    "description": "Exact operation replays occur while conflicted, after cancellation, and after another duplicate.",
+    "cancel_at_step": 4,
+    "steps": [
+      {"id": "d-submit-blue", "kind": "submit", "alias": "/deploy/api", "target": "/srv/blue"},
+      {"id": "d-submit-green", "kind": "submit", "alias": "/deploy//api/", "target": "/srv/green/"},
+      {"id": "d-submit-green", "kind": "submit", "alias": "/deploy//api/", "target": "/srv/green/"},
+      {"id": "d-cancel-green", "kind": "cancel", "cancel_id": "d-submit-green"},
+      {"id": "d-cancel-green", "kind": "cancel", "cancel_id": "d-submit-green"},
+      {"id": "d-submit-blue", "kind": "submit", "alias": "/deploy/api", "target": "/srv/blue"}
+    ],
+    "expect": {
+      "conflict_steps": [2],
+      "cancel_steps": [4],
+      "duplicate_noop_steps": [3, 5, 6],
+      "final_alias": "/deploy/api",
+      "final_target": "/srv/blue",
+      "conflict_free": true
+    }
+  }
+]
