@@ -1,0 +1,135 @@
+{
+  "RunID": "run-duplicate_submit",
+  "Scenario": "duplicate_submit",
+  "Steps": [
+    {
+      "Seq": 1,
+      "Input": {
+        "seq": 1,
+        "kind": "CONNECT",
+        "msg_id": ""
+      },
+      "Outcome": {
+        "accepted": true,
+        "reason": "connected",
+        "duplicate": false
+      },
+      "Snapshot": {
+        "state": "CONNECTED",
+        "last_seq": 1,
+        "in_flight": "",
+        "acked_msg": "",
+        "attempts": 0,
+        "retries": 0,
+        "rejected": 0,
+        "unknown_seen": 0,
+        "seen_msg": ""
+      },
+      "StateHash": "12607a54d8eb6917375727040790073265c2bdf45740eefb52a47ce155f10bad"
+    },
+    {
+      "Seq": 2,
+      "Input": {
+        "seq": 2,
+        "kind": "SUBMIT",
+        "msg_id": "m-300"
+      },
+      "Outcome": {
+        "accepted": true,
+        "reason": "request sent",
+        "duplicate": false
+      },
+      "Snapshot": {
+        "state": "REQUEST_SENT",
+        "last_seq": 2,
+        "in_flight": "m-300",
+        "acked_msg": "",
+        "attempts": 1,
+        "retries": 0,
+        "rejected": 0,
+        "unknown_seen": 0,
+        "seen_msg": "m-300"
+      },
+      "StateHash": "86773046000924de334c85129700fe9d8a378ec668ae833a9770a0e6d073491b"
+    },
+    {
+      "Seq": 3,
+      "Input": {
+        "seq": 3,
+        "kind": "SUBMIT",
+        "msg_id": "m-300"
+      },
+      "Outcome": {
+        "accepted": false,
+        "reason": "duplicate message id: idempotent no-op",
+        "duplicate": true
+      },
+      "Snapshot": {
+        "state": "REQUEST_SENT",
+        "last_seq": 3,
+        "in_flight": "m-300",
+        "acked_msg": "",
+        "attempts": 1,
+        "retries": 0,
+        "rejected": 0,
+        "unknown_seen": 0,
+        "seen_msg": "m-300"
+      },
+      "StateHash": "f703e37ee8cdea1ed43a6339232ebf01360de4c05e0f135a1faec36186e91d38"
+    },
+    {
+      "Seq": 4,
+      "Input": {
+        "seq": 4,
+        "kind": "ACK",
+        "msg_id": "m-300b"
+      },
+      "Outcome": {
+        "accepted": true,
+        "reason": "acknowledged",
+        "duplicate": false
+      },
+      "Snapshot": {
+        "state": "ACKED",
+        "last_seq": 4,
+        "in_flight": "",
+        "acked_msg": "m-300b",
+        "attempts": 1,
+        "retries": 0,
+        "rejected": 0,
+        "unknown_seen": 0,
+        "seen_msg": "m-300b"
+      },
+      "StateHash": "4865f4592065b0d66eb143c29e3f0110ec095823a6ac643029c519cc7ace3b81"
+    },
+    {
+      "Seq": 5,
+      "Input": {
+        "seq": 5,
+        "kind": "CLOSE",
+        "msg_id": ""
+      },
+      "Outcome": {
+        "accepted": true,
+        "reason": "closed",
+        "duplicate": false
+      },
+      "Snapshot": {
+        "state": "CLOSED",
+        "last_seq": 5,
+        "in_flight": "",
+        "acked_msg": "m-300b",
+        "attempts": 1,
+        "retries": 0,
+        "rejected": 0,
+        "unknown_seen": 0,
+        "seen_msg": "m-300b"
+      },
+      "StateHash": "b8800ef75311f2089df199cdb4680a5c0ac7f1aa554c0c01e98a829d1b85a1a5"
+    }
+  ],
+  "FinalHash": "b8800ef75311f2089df199cdb4680a5c0ac7f1aa554c0c01e98a829d1b85a1a5",
+  "Replayed": false,
+  "ReplayMatch": false,
+  "ReplayMismatch": 0
+}

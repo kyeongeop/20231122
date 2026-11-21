@@ -1,0 +1,160 @@
+{
+  "RunID": "run-reorder_check",
+  "Scenario": "reorder_check",
+  "Steps": [
+    {
+      "Seq": 1,
+      "Input": {
+        "seq": 1,
+        "kind": "CONNECT",
+        "msg_id": ""
+      },
+      "Outcome": {
+        "accepted": true,
+        "reason": "connected",
+        "duplicate": false
+      },
+      "Snapshot": {
+        "state": "CONNECTED",
+        "last_seq": 1,
+        "in_flight": "",
+        "acked_msg": "",
+        "attempts": 0,
+        "retries": 0,
+        "rejected": 0,
+        "unknown_seen": 0,
+        "seen_msg": ""
+      },
+      "StateHash": "12607a54d8eb6917375727040790073265c2bdf45740eefb52a47ce155f10bad"
+    },
+    {
+      "Seq": 3,
+      "Input": {
+        "seq": 3,
+        "kind": "TIMEOUT",
+        "msg_id": ""
+      },
+      "Outcome": {
+        "accepted": false,
+        "reason": "TIMEOUT only valid in REQUEST_SENT",
+        "duplicate": false
+      },
+      "Snapshot": {
+        "state": "CONNECTED",
+        "last_seq": 3,
+        "in_flight": "",
+        "acked_msg": "",
+        "attempts": 0,
+        "retries": 0,
+        "rejected": 1,
+        "unknown_seen": 0,
+        "seen_msg": ""
+      },
+      "StateHash": "5e882cedf1c12ec2115ae296e84a52c80834041064a75111b973dd275838644f"
+    },
+    {
+      "Seq": 2,
+      "Input": {
+        "seq": 2,
+        "kind": "SUBMIT",
+        "msg_id": "m-100"
+      },
+      "Outcome": {
+        "accepted": false,
+        "reason": "stale seq 2 \u003c= last 3",
+        "duplicate": false
+      },
+      "Snapshot": {
+        "state": "CONNECTED",
+        "last_seq": 3,
+        "in_flight": "",
+        "acked_msg": "",
+        "attempts": 0,
+        "retries": 0,
+        "rejected": 2,
+        "unknown_seen": 0,
+        "seen_msg": ""
+      },
+      "StateHash": "422db0b220b50ddc7a0b4e51517d2fbd4ee910e521067819d82d63483a77d2e4"
+    },
+    {
+      "Seq": 4,
+      "Input": {
+        "seq": 4,
+        "kind": "RECOVER",
+        "msg_id": ""
+      },
+      "Outcome": {
+        "accepted": false,
+        "reason": "RECOVER only valid in TIMED_OUT",
+        "duplicate": false
+      },
+      "Snapshot": {
+        "state": "CONNECTED",
+        "last_seq": 4,
+        "in_flight": "",
+        "acked_msg": "",
+        "attempts": 0,
+        "retries": 0,
+        "rejected": 3,
+        "unknown_seen": 0,
+        "seen_msg": ""
+      },
+      "StateHash": "19225521c2b1a04a558e17c66bdafd517fb319c0c6882016344d575e3793d071"
+    },
+    {
+      "Seq": 5,
+      "Input": {
+        "seq": 5,
+        "kind": "ACK",
+        "msg_id": "m-100"
+      },
+      "Outcome": {
+        "accepted": false,
+        "reason": "ACK only valid in REQUEST_SENT or RECOVERING",
+        "duplicate": false
+      },
+      "Snapshot": {
+        "state": "CONNECTED",
+        "last_seq": 5,
+        "in_flight": "",
+        "acked_msg": "",
+        "attempts": 0,
+        "retries": 0,
+        "rejected": 4,
+        "unknown_seen": 0,
+        "seen_msg": ""
+      },
+      "StateHash": "e4652701a19e08d1a56f5431a5300b27b1dc0752329dc3de2c67f05e1bbef2f2"
+    },
+    {
+      "Seq": 6,
+      "Input": {
+        "seq": 6,
+        "kind": "CLOSE",
+        "msg_id": ""
+      },
+      "Outcome": {
+        "accepted": true,
+        "reason": "closed",
+        "duplicate": false
+      },
+      "Snapshot": {
+        "state": "CLOSED",
+        "last_seq": 6,
+        "in_flight": "",
+        "acked_msg": "",
+        "attempts": 0,
+        "retries": 0,
+        "rejected": 4,
+        "unknown_seen": 0,
+        "seen_msg": ""
+      },
+      "StateHash": "16dc79894896e7b5a50d5466cbdfff8bd999bf10d63e1a90b13de848dc369c3b"
+    }
+  ],
+  "FinalHash": "16dc79894896e7b5a50d5466cbdfff8bd999bf10d63e1a90b13de848dc369c3b",
+  "Replayed": false,
+  "ReplayMatch": false,
+  "ReplayMismatch": 0
+}
