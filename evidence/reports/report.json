@@ -1,0 +1,103 @@
+{
+  "generated_at": "2026-11-21T16:28:51.231210103Z",
+  "db_path": "evidence/audit.db",
+  "cases": [
+    {
+      "case_id": "CASE-A1",
+      "title": "header table width overflow",
+      "anchor": "A1:count*9",
+      "input_path": "evidence/corpus/CASE-A1.bin",
+      "input_size": 8,
+      "sha256": "1a86848b814289e53d1a303aff394f9031b4b9a4677d0e9e2cede5155ca83209",
+      "raw_offset": 4,
+      "anchor_hits": {},
+      "vulnerable_error": "truncated frame",
+      "vulnerable_wrapped": "0x20000000+0x00000009 -\u003e 0x20000000",
+      "hardened_error": "record count exceeds cap",
+      "permission": "DENY: multiply would wrap uint32; untrusted count denied",
+      "event_times": [
+        "2026-11-21T16:28:51.231780891Z"
+      ]
+    },
+    {
+      "case_id": "CASE-A2",
+      "title": "offset plus length overflow",
+      "anchor": "A2:offset+length",
+      "input_path": "evidence/corpus/CASE-A2.bin",
+      "input_size": 23,
+      "sha256": "cbfd5f6cb46889139162d00875200fd054936d8298c09799e62fc939a4d7521e",
+      "raw_offset": 13,
+      "anchor_hits": {
+        "A1:count*9": 4,
+        "A2:offset+length": 8
+      },
+      "vulnerable_error": "",
+      "vulnerable_wrapped": "0xFFFFFFF0+0x00000020 -\u003e 0x00000010",
+      "hardened_error": "integer overflow detected",
+      "permission": "DENY: addition would wrap uint32; untrusted field denied",
+      "event_times": [
+        "2026-11-21T16:28:51.242378793Z"
+      ]
+    },
+    {
+      "case_id": "CASE-A3",
+      "title": "cursor advance overflow",
+      "anchor": "A3:cursor+length",
+      "input_path": "evidence/corpus/CASE-A3.bin",
+      "input_size": 22,
+      "sha256": "ea7ac3851ad450b059b99ac727c3da1ebf05f8b56ce62df3c503dee9bddc259d",
+      "raw_offset": 9,
+      "anchor_hits": {
+        "A1:count*9": 4,
+        "A2:offset+length": 8,
+        "A3:cursor+length": 8
+      },
+      "vulnerable_error": "",
+      "vulnerable_wrapped": "0x00000008+0xFFFFFFF9 -\u003e 0x00000001",
+      "hardened_error": "integer overflow detected",
+      "permission": "DENY: addition would wrap uint32; untrusted field denied",
+      "event_times": [
+        "2026-11-21T16:28:51.257053152Z"
+      ]
+    },
+    {
+      "case_id": "CASE-EMPTY",
+      "title": "empty input",
+      "anchor": "-",
+      "input_path": "evidence/corpus/CASE-EMPTY.bin",
+      "input_size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "raw_offset": 0,
+      "anchor_hits": {},
+      "vulnerable_error": "empty input",
+      "vulnerable_wrapped": "",
+      "hardened_error": "empty input",
+      "permission": "DENY: empty input: parser fails closed before any anchor",
+      "event_times": [
+        "2026-11-21T16:28:51.2778852Z"
+      ]
+    },
+    {
+      "case_id": "CASE-OVERSIZE",
+      "title": "oversized input with 4GiB payload claim",
+      "anchor": "A3:cursor+length",
+      "input_path": "evidence/corpus/CASE-OVERSIZE.bin",
+      "input_size": 16777216,
+      "sha256": "43d3d4224992075332c5f0c1bc19c2f99586d07bcc8e00c7ca3c14e5499da3ab",
+      "raw_offset": 9,
+      "anchor_hits": {
+        "A1:count*9": 4,
+        "A2:offset+length": 8,
+        "A3:cursor+length": 8
+      },
+      "vulnerable_error": "",
+      "vulnerable_wrapped": "0x00000008+0xFFFFFFFF -\u003e 0x00000007",
+      "hardened_error": "integer overflow detected",
+      "permission": "DENY: addition would wrap uint32; untrusted field denied",
+      "event_times": [
+        "2026-11-21T16:28:51.288477608Z"
+      ]
+    }
+  ],
+  "log_path": "evidence/reports/audit.log"
+}

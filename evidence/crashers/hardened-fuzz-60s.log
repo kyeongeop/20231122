@@ -1,0 +1,26 @@
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 3729136520
+INFO: Loaded 1 modules   (66 inline 8-bit counters): 66 [0x60af29348100, 0x60af29348142), 
+INFO: Loaded 1 PC tables (66 PCs): 66 [0x60af29348148,0x60af29348568), 
+INFO:       31 files found in seed_corpus
+INFO: -max_len is not provided; libFuzzer will not generate inputs larger than 1048576 bytes
+INFO: seed corpus: files: 31 min: 1b max: 16777216b total: 16778662b rss: 32Mb
+#32	INITED cov: 44 ft: 129 corp: 21/858b exec/s: 0 rss: 36Mb
+#4194304	pulse  cov: 44 ft: 129 corp: 21/858b lim: 42078 exec/s: 1398101 rss: 473Mb
+#8388608	pulse  cov: 44 ft: 129 corp: 21/858b lim: 83890 exec/s: 1198372 rss: 482Mb
+#16777216	pulse  cov: 44 ft: 129 corp: 21/858b lim: 167522 exec/s: 1198372 rss: 482Mb
+#33554432	pulse  cov: 44 ft: 129 corp: 21/858b lim: 334810 exec/s: 1016800 rss: 482Mb
+#45603447	REDUCE cov: 44 ft: 129 corp: 21/857b lim: 454978 exec/s: 930682 rss: 482Mb L: 49/305 MS: 5 EraseBytes-ChangeBinInt-CrossOver-CMP-CopyPart- DE: "\003\000\000\000\000\000\000\000"-
+#45610353	REDUCE cov: 44 ft: 129 corp: 21/854b lim: 455032 exec/s: 930823 rss: 482Mb L: 46/305 MS: 1 EraseBytes-
+#45617066	REDUCE cov: 44 ft: 129 corp: 21/853b lim: 455086 exec/s: 930960 rss: 482Mb L: 45/305 MS: 3 ChangeBinInt-ShuffleBytes-EraseBytes-
+#45621632	REDUCE cov: 44 ft: 129 corp: 21/852b lim: 455122 exec/s: 931053 rss: 482Mb L: 44/305 MS: 1 EraseBytes-
+#56700911	DONE   cov: 44 ft: 129 corp: 21/852b lim: 565602 exec/s: 929523 rss: 482Mb
+###### Recommended dictionary. ######
+"\003\000\000\000\000\000\000\000" # Uses: 977645
+###### End of recommended dictionary. ######
+Done 56700911 runs in 61 second(s)
+stat::number_of_executed_units: 56700911
+stat::average_exec_per_sec:     929523
+stat::new_units_added:          4
+stat::slowest_unit_time_sec:    0
+stat::peak_rss_mb:              482

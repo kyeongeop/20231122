@@ -1,0 +1,27 @@
+# libFuzzer/UBSan vulnerable reproduction
+# generated: 2026-11-21T16:24:54Z
+===== CASE-A1 =====
+./parser_fuzz_vulnerable: Running 1 inputs 1 time(s) each.
+Running: ../evidence/corpus/CASE-A1.bin
+parser_fuzz.c:49:38: runtime error: unsigned integer overflow: 536870912 * 9 cannot be represented in type 'uint32_t' (aka 'unsigned int')
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior parser_fuzz.c:49:38 
+Executed ../evidence/corpus/CASE-A1.bin in 0 ms
+***
+***
+===== CASE-A2 =====
+./parser_fuzz_vulnerable: Running 1 inputs 1 time(s) each.
+Running: ../evidence/corpus/CASE-A2.bin
+parser_fuzz.c:56:25: runtime error: unsigned integer overflow: 4294967280 + 32 cannot be represented in type 'uint32_t' (aka 'unsigned int')
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior parser_fuzz.c:56:25 
+Executed ../evidence/corpus/CASE-A2.bin in 0 ms
+***
+***
+===== CASE-A3 =====
+./parser_fuzz_vulnerable: Running 1 inputs 1 time(s) each.
+Running: ../evidence/corpus/CASE-A3.bin
+parser_fuzz.c:57:32: runtime error: unsigned integer overflow: 8 + 4294967289 cannot be represented in type 'uint32_t' (aka 'unsigned int')
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior parser_fuzz.c:57:32 
+Executed ../evidence/corpus/CASE-A3.bin in 0 ms
+***
+***
+===== CASE-EMPTY =====

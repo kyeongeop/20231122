@@ -1,0 +1,17 @@
+# libFuzzer hardened seed verification
+# generated: 2026-11-21T16:25:04Z
+===== CASE-A1 =====
+Executed ../evidence/corpus/CASE-A1.bin in 0 ms
+sanitizer_findings=0
+===== CASE-A2 =====
+Executed ../evidence/corpus/CASE-A2.bin in 0 ms
+sanitizer_findings=0
+===== CASE-A3 =====
+Executed ../evidence/corpus/CASE-A3.bin in 0 ms
+sanitizer_findings=0
+===== CASE-EMPTY =====
+Executed ../evidence/corpus/CASE-EMPTY.bin in 0 ms
+sanitizer_findings=0
+===== CASE-OVERSIZE =====
+Executed ../evidence/corpus/CASE-OVERSIZE.bin in 57 ms
+sanitizer_findings=0

@@ -1,0 +1,14 @@
+# fuzz binaries and generated corpora
+fuzz/parser_fuzz_hardened
+fuzz/parser_fuzz_vulnerable
+fuzz/seed_corpus/
+fuzz/vuln_seed/
+fuzz/slow-unit-*
+
+# SQLite transient files
+evidence/audit.db-wal
+evidence/audit.db-shm
+
+# Go
+*.test
+*.out
