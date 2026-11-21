@@ -1,0 +1,5 @@
+bin/
+fuzz/fuzzbomb
+fuzz/libfuzzbomb.a
+fuzz/libfuzzbomb.h
+artifacts/crashes/
