@@ -1,0 +1,7 @@
+artifacts/wsauthz.db*
+artifacts/server
+artifacts/server.log
+fuzz/libwsfuzz.so
+fuzz/libwsfuzz.h
+fuzz/wsfuzz
+corpus/

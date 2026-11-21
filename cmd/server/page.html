@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>WebSocket 授权绕过测试 · 来源检查</title>
+<style>
+  body { font-family: system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+         margin: 2rem auto; max-width: 1080px; color: #1c1e21; line-height: 1.5; }
+  h1 { font-size: 1.4rem; } h2 { font-size: 1.15rem; border-bottom: 2px solid #ddd;
+       padding-bottom: .3rem; margin-top: 2.2rem; }
+  table { border-collapse: collapse; width: 100%; margin: .8rem 0; }
+  th, td { border: 1px solid #d0d0d0; padding: .4rem .6rem; text-align: left;
+           vertical-align: top; font-size: .9rem; }
+  th { background: #f4f5f7; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size: .82rem; }
+  pre { background: #f6f8fa; border: 1px solid #e1e4e8; padding: .6rem;
+        overflow-x: auto; white-space: pre-wrap; }
+  .pill { display: inline-block; padding: .1rem .5rem; border-radius: .7rem;
+          font-size: .78rem; font-weight: 600; }
+  .good { background: #dcf5e3; color: #146c2e; }
+  .bad  { background: #fde0dc; color: #a50e0e; }
+  .warn { background: #fef3c7; color: #92400e; }
+  .info { background: #e0eaff; color: #1e40af; }
+  .card { border: 1px solid #d0d0d0; border-radius: .5rem; padding: 1rem;
+          margin: 1rem 0; }
+  .muted { color: #666; font-size: .85rem; }
+  details { margin: .4rem 0; } summary { cursor: pointer; color: #0b57d0; }
+</style>
+</head>
+<body>
+<h1>WebSocket 授权绕过测试 · 来源检查页</h1>
+<p class="muted">每条结论均可回溯到原始输入（SHA-256）与逐步处理记录；自动结论与人工确认分开呈现。</p>
+
+<h2>一、运行记录（含中途取消事件）</h2>
+{{range .Runs}}
+<div class="card">
+  <strong>#{{.ID}} {{.Name}}</strong>
+  <span class="pill {{if eq .Status "completed"}}good{{else if eq .Status "failed"}}bad{{else if eq .Status "cancelled"}}warn{{else}}info{{end}}">{{.Status}}</span>
+  <div class="muted">工具：{{.Tool}} ｜ 开始：{{.StartedAt}}{{if .EndedAt}} ｜ 结束：{{.EndedAt}}{{end}}</div>
+  <table>
+    <tr><th>seq</th><th>事件</th><th>说明</th><th>时间 (UTC)</th></tr>
+    {{range .Events}}
+    <tr>
+      <td>{{.Seq}}</td>
+      <td><span class="pill {{if eq .Kind "cancelled"}}warn{{else if eq .Kind "failed"}}bad{{else if eq .Kind "finished"}}good{{else}}info{{end}}">{{.Kind}}</span></td>
+      <td>{{.Detail}}</td>
+      <td>{{.At}}</td>
+    </tr>
+    {{end}}
+  </table>
+  {{with index $.RunActions .ID}}
+  <strong>后续操作（可执行）：</strong>
+  <ul>{{range .}}<li>[{{.Status}}] {{.Action}} <span class="muted">— {{.Reason}}</span></li>{{end}}</ul>
+  {{end}}
+</div>
+{{end}}
+
+<h2>二、自动结论（按输入逐条回溯）</h2>
+{{range .Inputs}}{{if .Automated}}
+<div class="card">
+  <strong>{{.Label}}</strong>
+  <div class="muted">原始输入 SHA-256：<code>{{.SHA256}}</code>（输入 #{{.ID}}，运行 #{{.RunID}}）</div>
+  {{range .Automated}}
+  <p>自动结论：<span class="pill {{verdictClass .Verdict}}">{{.Verdict}}</span> — {{.Rationale}}
+     <span class="muted">（{{.CreatedBy}}，{{.CreatedAt}}）</span></p>
+  {{end}}
+  <details><summary>处理步骤（{{len .Steps}} 步）</summary>
+    <table>
+      <tr><th>seq</th><th>步骤</th><th>细节</th></tr>
+      {{range .Steps}}<tr><td>{{.Seq}}</td><td>{{.Name}}</td><td>{{.Detail}}</td></tr>{{end}}
+    </table>
+  </details>
+  <details><summary>原始输入内容</summary><pre>{{.Content}}</pre></details>
+</div>
+{{end}}{{end}}
+
+<h2>三、人工确认</h2>
+<table>
+  <tr><th>输入</th><th>人工结论</th><th>理由</th><th>确认人</th><th>时间 (UTC)</th></tr>
+  {{range .Inputs}}{{$input := .}}{{range .Manual}}
+  <tr>
+    <td>{{$input.Label}}</td>
+    <td><span class="pill {{verdictClass .Verdict}}">{{.Verdict}}</span></td>
+    <td>{{.Rationale}}</td>
+    <td>{{.CreatedBy}}</td>
+    <td>{{.CreatedAt}}</td>
+  </tr>
+  {{end}}{{end}}
+</table>
+
+<h2>四、无法判断的边界案例与关键证据</h2>
+{{range .Inputs}}{{if .Evidence}}
+<div class="card">
+  <strong>{{.Label}}</strong>
+  <div class="muted">输入 #{{.ID}} ｜ SHA-256：<code>{{.SHA256}}</code></div>
+  {{range .Evidence}}
+  <p><span class="pill warn">证据</span> <strong>{{.Label}}</strong></p>
+  <pre>{{.Content}}</pre>
+  {{end}}
+  {{with .NextActions}}
+  <strong>后续操作（可执行）：</strong>
+  <ul>{{range .}}<li>[{{.Status}}] {{.Action}} <span class="muted">— {{.Reason}}</span></li>{{end}}</ul>
+  {{end}}
+</div>
+{{end}}{{end}}
+
+<h2>五、失败与可执行的后续操作</h2>
+<table>
+  <tr><th>关联</th><th>操作</th><th>原因</th><th>状态</th></tr>
+  {{range $run := .Runs}}{{with index $.RunActions $run.ID}}{{range .}}
+  <tr><td>运行 #{{$run.ID}} {{$run.Name}}</td><td>{{.Action}}</td><td>{{.Reason}}</td><td>{{.Status}}</td></tr>
+  {{end}}{{end}}{{end}}
+  {{range .Inputs}}{{$input := .}}{{with .NextActions}}{{range .}}
+  <tr><td>输入 #{{$input.ID}} {{$input.Label}}</td><td>{{.Action}}</td><td>{{.Reason}}</td><td>{{.Status}}</td></tr>
+  {{end}}{{end}}{{end}}
+</table>
+
+</body>
+</html>
