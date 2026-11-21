@@ -1,0 +1,9 @@
+/crashprovenance
+/fuzz/kz3_fuzz
+/fuzz/kz3_replay
+/evidence/*.db
+/evidence/*.db-shm
+/evidence/*.db-wal
+/evidence/objects/
+/evidence/snapshots/
+/tmp/
