@@ -1,0 +1,9 @@
+# Local krfix workspaces (SQLite DB, corpus, evidence, build outputs)
+.krfix/
+*.db
+*.db-wal
+*.db-shm
+
+# Compiled test binaries
+*.test
+out/
