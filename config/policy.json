@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "actors": {
+    "reader": {
+      "description": "Read-only reporting account",
+      "capabilities": ["read"]
+    },
+    "app_writer": {
+      "description": "Application runtime account",
+      "capabilities": ["read", "write"]
+    },
+    "app_migrator": {
+      "description": "Migration account; schema changes only",
+      "capabilities": ["read", "write", "schema"]
+    },
+    "admin": {
+      "description": "Break-glass administrator; high-risk actions still need operator approval",
+      "capabilities": ["read", "write", "schema", "destructive", "attach", "admin"]
+    }
+  }
+}

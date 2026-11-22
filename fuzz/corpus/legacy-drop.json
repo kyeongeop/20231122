@@ -1,0 +1,5 @@
+{
+  "id": "fuzz-legacy-drop",
+  "actor": "app_migrator",
+  "sql": "-- migration\nALTER TABLE accounts ADD COLUMN last_seen TEXT;\nDROP TABLE audit_log;"
+}

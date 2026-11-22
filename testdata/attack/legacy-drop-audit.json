@@ -1,0 +1,6 @@
+{
+  "id": "legacy-maintenance",
+  "actor": "app_migrator",
+  "requested_by": "compromised-build",
+  "sql": "-- routine maintenance\nALTER TABLE accounts ADD COLUMN last_seen TEXT;\nDROP TABLE audit_log;"
+}

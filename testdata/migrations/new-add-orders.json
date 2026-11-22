@@ -1,0 +1,17 @@
+{
+  "format_version": 2,
+  "migration": {
+    "id": "orders-v2",
+    "actor": "app_migrator",
+    "requested_by": "release-2026-11-22",
+    "approval_id": "CHG-1042",
+    "statements": [
+      {
+        "sql": "CREATE TABLE orders (id INTEGER PRIMARY KEY, account_id INTEGER NOT NULL, total_cents INTEGER NOT NULL)"
+      },
+      {
+        "sql": "CREATE INDEX idx_orders_account ON orders(account_id)"
+      }
+    ]
+  }
+}

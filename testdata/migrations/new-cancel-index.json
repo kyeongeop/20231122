@@ -1,0 +1,17 @@
+{
+  "format_version": 2,
+  "migration": {
+    "id": "cancel-midway",
+    "actor": "app_migrator",
+    "requested_by": "cancellation-drill",
+    "approval_id": "CHG-CANCEL-1",
+    "statements": [
+      {
+        "sql": "CREATE TABLE cancel_probe (id INTEGER PRIMARY KEY, note TEXT)"
+      },
+      {
+        "sql": "CREATE INDEX idx_cancel_probe_note ON cancel_probe(note)"
+      }
+    ]
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "id": "fuzz-pragma",
+  "actor": "admin",
+  "sql": "PRAGMA writable_schema = ON; PRAGMA writable_schema = OFF;"
+}

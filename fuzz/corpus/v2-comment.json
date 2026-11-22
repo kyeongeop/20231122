@@ -1,0 +1,11 @@
+{
+  "format_version": 2,
+  "migration": {
+    "id": "fuzz-v2",
+    "actor": "app_migrator",
+    "statements": [
+      "/* ordinary */ CREATE TABLE notes (body TEXT)",
+      "SELECT 'DROP TABLE audit_log'"
+    ]
+  }
+}
