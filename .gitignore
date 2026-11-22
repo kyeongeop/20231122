@@ -1,0 +1,14 @@
+# Build artifacts
+/build/
+
+# Default campaign work directory
+/ckaudit-work/
+
+# Local Go/cache noise
+*.out
+*.test
+
+# Stray local database (canonical DB lives under the work dir)
+/audit.db
+*-wal
+*-shm
