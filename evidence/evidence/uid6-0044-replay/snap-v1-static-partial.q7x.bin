@@ -1,0 +1,3 @@
+CACHE-LEAK-SNAPSHOT=v1
+OBJECT=partial.q7x
+PAYLOAD=exists-only-in-v1

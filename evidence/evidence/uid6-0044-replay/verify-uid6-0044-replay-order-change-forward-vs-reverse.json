@@ -1,0 +1,61 @@
+{
+  "id": "verify-uid6-0044-replay-order-change-forward-vs-reverse",
+  "kind": "order-change",
+  "subject": "forward-vs-reverse",
+  "passed": true,
+  "expected": {
+    "forward": "first request MISSes on snap-v1; snap-v2 then HITs stale snap-v1",
+    "invariant": "the second distinct snapshot is served from the first snapshot's cache entry",
+    "reverse": "first request MISSes on snap-v2; snap-v1 then HITs stale snap-v2"
+  },
+  "actual": {
+    "forward": [
+      {
+        "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+        "cache_status": "MISS",
+        "leaked": false,
+        "ordinal": 1,
+        "served_snapshot": "snap-v1"
+      },
+      {
+        "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+        "cache_status": "HIT",
+        "leaked": true,
+        "ordinal": 2,
+        "served_snapshot": "snap-v1"
+      },
+      {
+        "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+        "cache_status": "HIT",
+        "leaked": true,
+        "ordinal": 3,
+        "served_snapshot": "snap-v1"
+      }
+    ],
+    "reverse": [
+      {
+        "body_sha256": "0a08b16db15f3307b95a58ca7cf76bea2ca38ce03aab3445df76c6ca20de0c41",
+        "cache_status": "MISS",
+        "leaked": false,
+        "ordinal": 1,
+        "served_snapshot": "snap-v2"
+      },
+      {
+        "body_sha256": "0a08b16db15f3307b95a58ca7cf76bea2ca38ce03aab3445df76c6ca20de0c41",
+        "cache_status": "HIT",
+        "leaked": true,
+        "ordinal": 2,
+        "served_snapshot": "snap-v2"
+      },
+      {
+        "body_sha256": "0a08b16db15f3307b95a58ca7cf76bea2ca38ce03aab3445df76c6ca20de0c41",
+        "cache_status": "HIT",
+        "leaked": true,
+        "ordinal": 3,
+        "served_snapshot": "snap-v2"
+      }
+    ]
+  },
+  "created_at": "2026-11-22T07:19:24.323842165Z",
+  "detail": "Changing request order changes which version is stale, proving the cache key omits snapshot/version."
+}

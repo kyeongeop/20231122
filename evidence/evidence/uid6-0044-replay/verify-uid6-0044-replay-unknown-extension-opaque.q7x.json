@@ -1,0 +1,22 @@
+{
+  "id": "verify-uid6-0044-replay-unknown-extension-opaque.q7x",
+  "kind": "unknown-extension",
+  "subject": "opaque.q7x",
+  "passed": true,
+  "expected": {
+    "extension": ".q7x",
+    "known_extension": false,
+    "mime": "application/octet-stream",
+    "same_path": "/static/opaque.q7x",
+    "snapshot_count": 2
+  },
+  "actual": {
+    "extension": ".q7x",
+    "known_extension": false,
+    "mime": "application/octet-stream",
+    "same_path": "/static/opaque.q7x",
+    "snapshot_count": 2
+  },
+  "created_at": "2026-11-22T07:19:24.313272592Z",
+  "detail": "Unknown extension must remain byte-oriented and both snapshots must expose the same logical path."
+}

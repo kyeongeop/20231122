@@ -1,0 +1,65 @@
+{
+  "run_id": "uid6-0044-replay",
+  "scenario_id": "sc-uid6-0044-replay-order-reverse",
+  "ordinal": 4,
+  "object_key": "snap-v1:/static/opaque.q7x",
+  "phase": "request",
+  "input": {
+    "method": "GET",
+    "path": "/static/opaque.q7x",
+    "snapshot_id": "snap-v1",
+    "headers": {
+      "X-Object-SHA256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+      "X-Snapshot": "snap-v1"
+    },
+    "submit": 3,
+    "repeat_of": 2
+  },
+  "state_before": {
+    "cache_size": 1,
+    "cache": {
+      "GET /static/opaque.q7x": {
+        "key": "GET /static/opaque.q7x",
+        "snapshot_id": "snap-v2",
+        "version": "release-2026.11.22-b",
+        "sha256": "0a08b16db15f3307b95a58ca7cf76bea2ca38ce03aab3445df76c6ca20de0c41",
+        "size": 59,
+        "stored_at": "2026-11-22T07:19:24.186868805Z"
+      }
+    },
+    "selected_snapshot": "snap-v1",
+    "temp_root_present": true
+  },
+  "state_after": {
+    "cache_size": 1,
+    "cache": {
+      "GET /static/opaque.q7x": {
+        "key": "GET /static/opaque.q7x",
+        "snapshot_id": "snap-v2",
+        "version": "release-2026.11.22-b",
+        "sha256": "0a08b16db15f3307b95a58ca7cf76bea2ca38ce03aab3445df76c6ca20de0c41",
+        "size": 59,
+        "stored_at": "2026-11-22T07:19:24.186868805Z"
+      }
+    },
+    "selected_snapshot": "snap-v1",
+    "temp_root_present": true
+  },
+  "result": {
+    "status_code": 200,
+    "cache_status": "HIT",
+    "cache_key": "GET /static/opaque.q7x",
+    "selected_snapshot": "snap-v1",
+    "served_snapshot": "snap-v2",
+    "expected_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+    "body_sha256": "0a08b16db15f3307b95a58ca7cf76bea2ca38ce03aab3445df76c6ca20de0c41",
+    "body_size": 59,
+    "body_base64": "Q0FDSEUtTEVBSy1TTkFQU0hPVD12MgpPQkpFQ1Q9b3BhcXVlLnE3eApQQVlMT0FEPWJldGEtMDIwOAo=",
+    "mime": "application/octet-stream",
+    "leaked": true,
+    "stale_by_version": true
+  },
+  "status": "ok",
+  "started_at": "2026-11-22T07:19:24.208588065Z",
+  "finished_at": "2026-11-22T07:19:24.208630405Z"
+}

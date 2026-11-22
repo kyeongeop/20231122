@@ -1,0 +1,72 @@
+{
+  "run_id": "uid6-0044-replay",
+  "scenario_id": "sc-uid6-0044-replay-error-continuation",
+  "ordinal": 4,
+  "object_key": "snap-v1:/static/tail.q7x",
+  "phase": "request",
+  "input": {
+    "method": "GET",
+    "path": "/static/tail.q7x",
+    "snapshot_id": "snap-v1",
+    "headers": {
+      "X-Object-SHA256": "b35e3fd1c13e1d7f17f55bb0c3dddb9565bc88d8e3e44bf119c6f97142523403",
+      "X-Snapshot": "snap-v1"
+    },
+    "submit": 1
+  },
+  "state_before": {
+    "cache_size": 1,
+    "cache": {
+      "GET /static/opaque.q7x": {
+        "key": "GET /static/opaque.q7x",
+        "snapshot_id": "snap-v1",
+        "version": "release-2026.11.22-a",
+        "sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+        "size": 60,
+        "stored_at": "2026-11-22T07:19:24.283901001Z"
+      }
+    },
+    "selected_snapshot": "snap-v1",
+    "temp_root_present": true
+  },
+  "state_after": {
+    "cache_size": 2,
+    "cache": {
+      "GET /static/opaque.q7x": {
+        "key": "GET /static/opaque.q7x",
+        "snapshot_id": "snap-v1",
+        "version": "release-2026.11.22-a",
+        "sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+        "size": 60,
+        "stored_at": "2026-11-22T07:19:24.283901001Z"
+      },
+      "GET /static/tail.q7x": {
+        "key": "GET /static/tail.q7x",
+        "snapshot_id": "snap-v1",
+        "version": "release-2026.11.22-a",
+        "sha256": "b35e3fd1c13e1d7f17f55bb0c3dddb9565bc88d8e3e44bf119c6f97142523403",
+        "size": 58,
+        "stored_at": "2026-11-22T07:19:24.296046313Z"
+      }
+    },
+    "selected_snapshot": "snap-v1",
+    "temp_root_present": true
+  },
+  "result": {
+    "status_code": 200,
+    "cache_status": "MISS",
+    "cache_key": "GET /static/tail.q7x",
+    "selected_snapshot": "snap-v1",
+    "served_snapshot": "snap-v1",
+    "expected_sha256": "b35e3fd1c13e1d7f17f55bb0c3dddb9565bc88d8e3e44bf119c6f97142523403",
+    "body_sha256": "b35e3fd1c13e1d7f17f55bb0c3dddb9565bc88d8e3e44bf119c6f97142523403",
+    "body_size": 58,
+    "body_base64": "Q0FDSEUtTEVBSy1TTkFQU0hPVD12MQpPQkpFQ1Q9dGFpbC5xN3gKUEFZTE9BRD10YWlsLWFscGhhCg==",
+    "mime": "application/octet-stream",
+    "leaked": false,
+    "stale_by_version": false
+  },
+  "status": "ok",
+  "started_at": "2026-11-22T07:19:24.295984461Z",
+  "finished_at": "2026-11-22T07:19:24.296049742Z"
+}

@@ -1,0 +1,90 @@
+{
+  "schema": "cacheleak.audit/v1",
+  "run_id": "uid6-0044-replay",
+  "ok": true,
+  "checked_at": "2026-11-22T07:19:25.395595587Z",
+  "totals": {
+    "scenarios": 5,
+    "steps": 20,
+    "evidence": 37,
+    "verifications": 6,
+    "repeat_groups": 4
+  },
+  "checks": [
+    {
+      "name": "run-completed",
+      "passed": true,
+      "detail": "run status: completed"
+    },
+    {
+      "name": "two-snapshots",
+      "passed": true,
+      "detail": "snapshots=2"
+    },
+    {
+      "name": "unknown-extension",
+      "passed": true,
+      "detail": "extension .q7x must be unregistered for both snapshots"
+    },
+    {
+      "name": "object-hashes",
+      "passed": true,
+      "detail": "SQLite BLOB SHA-256 must match stored object metadata"
+    },
+    {
+      "name": "evidence-files",
+      "passed": true,
+      "detail": "every sealed file must exist, be read-only, and match SHA-256"
+    },
+    {
+      "name": "step-timeline",
+      "passed": true,
+      "detail": "every step must have input, before/after state, result, and ordered UTC timestamps"
+    },
+    {
+      "name": "scenario-counts",
+      "passed": true,
+      "detail": "scenario counters must match SQLite step rows"
+    },
+    {
+      "name": "order-forward",
+      "passed": true,
+      "detail": "v1 then v2 leaks v1"
+    },
+    {
+      "name": "order-reverse",
+      "passed": true,
+      "detail": "v2 then v1 leaks v2"
+    },
+    {
+      "name": "repeat-submissions",
+      "passed": true,
+      "detail": "duplicate submissions must stay HIT and deterministic"
+    },
+    {
+      "name": "error-continuation",
+      "passed": true,
+      "detail": "step after injected 404 must still run"
+    },
+    {
+      "name": "recorded-verifications",
+      "passed": true,
+      "detail": "all SQLite verification rows must pass"
+    },
+    {
+      "name": "cleanup-receipts",
+      "passed": true,
+      "detail": "cleanup rows must report no remaining path"
+    },
+    {
+      "name": "temporary-state-absent",
+      "passed": true,
+      "detail": "all scenario temp roots must be gone"
+    },
+    {
+      "name": "libfuzzer-artifact",
+      "passed": true,
+      "detail": "fuzzer log and crash artifact must be sealed and match hashes"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 254240758
+INFO: Loaded 1 modules   (363 inline 8-bit counters): 363 [0x641972217e98, 0x641972218003), 
+INFO: Loaded 1 PC tables (363 PCs): 363 [0x641972218008,0x6419722196b8), 
+INFO:        1 files found in /home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/fuzz/corpus
+INFO: -max_len is not provided; libFuzzer will not generate inputs larger than 4096 bytes
+INFO: seed corpus: files: 1 min: 5b max: 5b total: 5b rss: 32Mb
+CACHELEAK_ASSERT: key=/static/xq7xx.q7x first=snap-v1 second=snap-v1 version-omitted-from-cache-key
+==1045267== ERROR: libFuzzer: deadly signal
+==1045267==WARNING: invalid path to external symbolizer!
+==1045267==WARNING: Failed to use and restart external symbolizer!
+    #0 0x641972190da5  (/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/fuzz/cache_key_fuzzer+0x11bda5) (BuildId: 275d36fa6fcb5cc636f41386d76b4fa041e30d3c)
+    #1 0x6419720df31c  (/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/fuzz/cache_key_fuzzer+0x6a31c) (BuildId: 275d36fa6fcb5cc636f41386d76b4fa041e30d3c)
+    #2 0x6419720c5157  (/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/fuzz/cache_key_fuzzer+0x50157) (BuildId: 275d36fa6fcb5cc636f41386d76b4fa041e30d3c)
+    #3 0x782e4fe45caf  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x45caf) (BuildId: 9851d79b1f32e900a27f8d0a68e29d750303f0c6)
+    #4 0x6419721cb7fb  (/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/fuzz/cache_key_fuzzer+0x1567fb) (BuildId: 275d36fa6fcb5cc636f41386d76b4fa041e30d3c)
+    #5 0x6419720c685f  (/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/fuzz/cache_key_fuzzer+0x5185f) (BuildId: 275d36fa6fcb5cc636f41386d76b4fa041e30d3c)
+    #6 0x6419720c5e89  (/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/fuzz/cache_key_fuzzer+0x50e89) (BuildId: 275d36fa6fcb5cc636f41386d76b4fa041e30d3c)
+    #7 0x6419720c7ca2  (/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/fuzz/cache_key_fuzzer+0x52ca2) (BuildId: 275d36fa6fcb5cc636f41386d76b4fa041e30d3c)
+    #8 0x6419720c81bb  (/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/fuzz/cache_key_fuzzer+0x531bb) (BuildId: 275d36fa6fcb5cc636f41386d76b4fa041e30d3c)
+    #9 0x6419720b5190  (/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/fuzz/cache_key_fuzzer+0x40190) (BuildId: 275d36fa6fcb5cc636f41386d76b4fa041e30d3c)
+    #10 0x6419720dfe96  (/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/fuzz/cache_key_fuzzer+0x6ae96) (BuildId: 275d36fa6fcb5cc636f41386d76b4fa041e30d3c)
+    #11 0x782e4fe2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 9851d79b1f32e900a27f8d0a68e29d750303f0c6)
+    #12 0x782e4fe2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 9851d79b1f32e900a27f8d0a68e29d750303f0c6)
+    #13 0x6419720a9994  (/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/fuzz/cache_key_fuzzer+0x34994) (BuildId: 275d36fa6fcb5cc636f41386d76b4fa041e30d3c)
+
+NOTE: libFuzzer has rudimentary signal handlers.
+      Combine libFuzzer with AddressSanitizer or similar for better crash reports.
+SUMMARY: libFuzzer: deadly signal
+MS: 0 ; base unit: 0000000000000000000000000000000000000000
+0x42,0x71,0x37,0x78,0x0,
+Bq7x\000
+artifact_prefix='/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/fuzz/artifacts/'; Test unit written to /home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/fuzz/artifacts/crash-a8b002410496730dbfc0fc9f42d9fa338b0a41ea
+Base64: QnE3eAA=

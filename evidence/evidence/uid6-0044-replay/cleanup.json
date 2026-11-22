@@ -1,0 +1,22 @@
+{
+  "records": [
+    {
+      "path": "/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay",
+      "existed_before": true,
+      "exists_after": false,
+      "action": "os.RemoveAll",
+      "status": "ok",
+      "created_at": "2026-11-22T07:19:25.353259419Z"
+    },
+    {
+      "path": "/home/hj/userfeedback3/uid6-0044/evidence/.tmp",
+      "existed_before": true,
+      "exists_after": false,
+      "action": "os.RemoveAll",
+      "status": "ok",
+      "created_at": "2026-11-22T07:19:25.353272999Z"
+    }
+  ],
+  "run_id": "uid6-0044-replay",
+  "temp_base": "/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay"
+}

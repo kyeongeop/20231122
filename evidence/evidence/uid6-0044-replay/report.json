@@ -1,0 +1,625 @@
+{
+  "schema": "cacheleak.experiment/v1",
+  "id": "uid6-0044-replay",
+  "status": "completed",
+  "started_at": "2026-11-22T07:19:24.048697873Z",
+  "finished_at": "2026-11-22T07:19:25.377410555Z",
+  "db_path": "/home/hj/userfeedback3/uid6-0044/evidence/evidence.db",
+  "evidence_dir": "/home/hj/userfeedback3/uid6-0044/evidence/evidence/uid6-0044-replay",
+  "unknown_extension": ".q7x",
+  "snapshots": [
+    {
+      "id": "snap-v1",
+      "label": "release-2026.11.22-a",
+      "created_at": "2026-11-21T08:00:00Z"
+    },
+    {
+      "id": "snap-v2",
+      "label": "release-2026.11.22-b",
+      "created_at": "2026-11-21T08:01:00Z"
+    }
+  ],
+  "objects": [
+    {
+      "key": "snap-v1:/static/opaque.q7x",
+      "snapshot_id": "snap-v1",
+      "version": "release-2026.11.22-a",
+      "logical_path": "/static/opaque.q7x",
+      "file_name": "opaque.q7x",
+      "extension": ".q7x",
+      "known_extension": false,
+      "mime": "application/octet-stream",
+      "size": 60,
+      "sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+      "captured_at": "2026-11-21T08:00:00Z"
+    },
+    {
+      "key": "snap-v2:/static/opaque.q7x",
+      "snapshot_id": "snap-v2",
+      "version": "release-2026.11.22-b",
+      "logical_path": "/static/opaque.q7x",
+      "file_name": "opaque.q7x",
+      "extension": ".q7x",
+      "known_extension": false,
+      "mime": "application/octet-stream",
+      "size": 59,
+      "sha256": "0a08b16db15f3307b95a58ca7cf76bea2ca38ce03aab3445df76c6ca20de0c41",
+      "captured_at": "2026-11-21T08:01:00Z"
+    },
+    {
+      "key": "snap-v1:/static/tail.q7x",
+      "snapshot_id": "snap-v1",
+      "version": "release-2026.11.22-a",
+      "logical_path": "/static/tail.q7x",
+      "file_name": "tail.q7x",
+      "extension": ".q7x",
+      "known_extension": false,
+      "mime": "application/octet-stream",
+      "size": 58,
+      "sha256": "b35e3fd1c13e1d7f17f55bb0c3dddb9565bc88d8e3e44bf119c6f97142523403",
+      "captured_at": "2026-11-21T08:00:00Z"
+    },
+    {
+      "key": "snap-v2:/static/tail.q7x",
+      "snapshot_id": "snap-v2",
+      "version": "release-2026.11.22-b",
+      "logical_path": "/static/tail.q7x",
+      "file_name": "tail.q7x",
+      "extension": ".q7x",
+      "known_extension": false,
+      "mime": "application/octet-stream",
+      "size": 57,
+      "sha256": "56f68dae104d33930bd19723191645b82e57510eaad941be80444a5f8b4c7935",
+      "captured_at": "2026-11-21T08:01:00Z"
+    },
+    {
+      "key": "snap-v1:/static/partial.q7x",
+      "snapshot_id": "snap-v1",
+      "version": "release-2026.11.22-a",
+      "logical_path": "/static/partial.q7x",
+      "file_name": "partial.q7x",
+      "extension": ".q7x",
+      "known_extension": false,
+      "mime": "application/octet-stream",
+      "size": 68,
+      "sha256": "08c42d695f3c80d3d86512a6347ca2b2b3553ebe02dd52f95c8ebc082f59b96d",
+      "captured_at": "2026-11-21T08:00:00Z"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "sc-uid6-0044-replay-order-forward",
+      "name": "order-forward",
+      "order": "v1-then-v2",
+      "status": "completed",
+      "step_count": 4,
+      "error_count": 0,
+      "leak_count": 3,
+      "steps": [
+        {
+          "ordinal": 1,
+          "status": "ok",
+          "cache_status": "MISS",
+          "served_snapshot": "snap-v1",
+          "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+          "leaked": false,
+          "evidence_id": "step-order-forward-01"
+        },
+        {
+          "ordinal": 2,
+          "status": "ok",
+          "cache_status": "HIT",
+          "served_snapshot": "snap-v1",
+          "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+          "leaked": true,
+          "evidence_id": "step-order-forward-02"
+        },
+        {
+          "ordinal": 3,
+          "status": "ok",
+          "cache_status": "HIT",
+          "served_snapshot": "snap-v1",
+          "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+          "leaked": true,
+          "evidence_id": "step-order-forward-03"
+        },
+        {
+          "ordinal": 4,
+          "status": "ok",
+          "cache_status": "HIT",
+          "served_snapshot": "snap-v1",
+          "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+          "leaked": true,
+          "evidence_id": "step-order-forward-04"
+        }
+      ],
+      "temp_path": "/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/order-forward",
+      "cleanup_ok": true,
+      "started_at": "2026-11-22T07:19:24.102474372Z",
+      "finished_at": "2026-11-22T07:19:24.162478729Z"
+    },
+    {
+      "id": "sc-uid6-0044-replay-order-reverse",
+      "name": "order-reverse",
+      "order": "v2-then-v1",
+      "status": "completed",
+      "step_count": 4,
+      "error_count": 0,
+      "leak_count": 3,
+      "steps": [
+        {
+          "ordinal": 1,
+          "status": "ok",
+          "cache_status": "MISS",
+          "served_snapshot": "snap-v2",
+          "body_sha256": "0a08b16db15f3307b95a58ca7cf76bea2ca38ce03aab3445df76c6ca20de0c41",
+          "leaked": false,
+          "evidence_id": "step-order-reverse-01"
+        },
+        {
+          "ordinal": 2,
+          "status": "ok",
+          "cache_status": "HIT",
+          "served_snapshot": "snap-v2",
+          "body_sha256": "0a08b16db15f3307b95a58ca7cf76bea2ca38ce03aab3445df76c6ca20de0c41",
+          "leaked": true,
+          "evidence_id": "step-order-reverse-02"
+        },
+        {
+          "ordinal": 3,
+          "status": "ok",
+          "cache_status": "HIT",
+          "served_snapshot": "snap-v2",
+          "body_sha256": "0a08b16db15f3307b95a58ca7cf76bea2ca38ce03aab3445df76c6ca20de0c41",
+          "leaked": true,
+          "evidence_id": "step-order-reverse-03"
+        },
+        {
+          "ordinal": 4,
+          "status": "ok",
+          "cache_status": "HIT",
+          "served_snapshot": "snap-v2",
+          "body_sha256": "0a08b16db15f3307b95a58ca7cf76bea2ca38ce03aab3445df76c6ca20de0c41",
+          "leaked": true,
+          "evidence_id": "step-order-reverse-04"
+        }
+      ],
+      "temp_path": "/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/order-reverse",
+      "cleanup_ok": true,
+      "started_at": "2026-11-22T07:19:24.179597164Z",
+      "finished_at": "2026-11-22T07:19:24.213463327Z"
+    },
+    {
+      "id": "sc-uid6-0044-replay-repeat-forward-a",
+      "name": "repeat-forward-a",
+      "order": "v1-then-v2",
+      "status": "completed",
+      "step_count": 3,
+      "error_count": 0,
+      "leak_count": 2,
+      "steps": [
+        {
+          "ordinal": 1,
+          "status": "ok",
+          "cache_status": "MISS",
+          "served_snapshot": "snap-v1",
+          "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+          "leaked": false,
+          "evidence_id": "step-repeat-forward-a-01"
+        },
+        {
+          "ordinal": 2,
+          "status": "ok",
+          "cache_status": "HIT",
+          "served_snapshot": "snap-v1",
+          "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+          "leaked": true,
+          "evidence_id": "step-repeat-forward-a-02"
+        },
+        {
+          "ordinal": 3,
+          "status": "ok",
+          "cache_status": "HIT",
+          "served_snapshot": "snap-v1",
+          "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+          "leaked": true,
+          "evidence_id": "step-repeat-forward-a-03"
+        }
+      ],
+      "temp_path": "/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/repeat-forward-a",
+      "cleanup_ok": true,
+      "started_at": "2026-11-22T07:19:24.215115677Z",
+      "finished_at": "2026-11-22T07:19:24.239704025Z"
+    },
+    {
+      "id": "sc-uid6-0044-replay-repeat-forward-b",
+      "name": "repeat-forward-b",
+      "order": "v1-then-v2",
+      "status": "completed",
+      "step_count": 3,
+      "error_count": 0,
+      "leak_count": 2,
+      "steps": [
+        {
+          "ordinal": 1,
+          "status": "ok",
+          "cache_status": "MISS",
+          "served_snapshot": "snap-v1",
+          "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+          "leaked": false,
+          "evidence_id": "step-repeat-forward-b-01"
+        },
+        {
+          "ordinal": 2,
+          "status": "ok",
+          "cache_status": "HIT",
+          "served_snapshot": "snap-v1",
+          "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+          "leaked": true,
+          "evidence_id": "step-repeat-forward-b-02"
+        },
+        {
+          "ordinal": 3,
+          "status": "ok",
+          "cache_status": "HIT",
+          "served_snapshot": "snap-v1",
+          "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+          "leaked": true,
+          "evidence_id": "step-repeat-forward-b-03"
+        }
+      ],
+      "temp_path": "/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/repeat-forward-b",
+      "cleanup_ok": true,
+      "started_at": "2026-11-22T07:19:24.248037174Z",
+      "finished_at": "2026-11-22T07:19:24.272429915Z"
+    },
+    {
+      "id": "sc-uid6-0044-replay-error-continuation",
+      "name": "error-continuation",
+      "order": "v1-v2-error-tail",
+      "status": "completed-with-errors",
+      "step_count": 6,
+      "error_count": 1,
+      "leak_count": 3,
+      "steps": [
+        {
+          "ordinal": 1,
+          "status": "ok",
+          "cache_status": "MISS",
+          "served_snapshot": "snap-v1",
+          "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+          "leaked": false,
+          "evidence_id": "step-error-continuation-01"
+        },
+        {
+          "ordinal": 2,
+          "status": "ok",
+          "cache_status": "HIT",
+          "served_snapshot": "snap-v1",
+          "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+          "leaked": true,
+          "evidence_id": "step-error-continuation-02"
+        },
+        {
+          "ordinal": 3,
+          "status": "error",
+          "cache_status": "ERROR",
+          "served_snapshot": "",
+          "body_sha256": "",
+          "leaked": false,
+          "evidence_id": "step-error-continuation-03",
+          "error": "object \"/static/partial.q7x\" missing from snapshot \"snap-v2\""
+        },
+        {
+          "ordinal": 4,
+          "status": "ok",
+          "cache_status": "MISS",
+          "served_snapshot": "snap-v1",
+          "body_sha256": "b35e3fd1c13e1d7f17f55bb0c3dddb9565bc88d8e3e44bf119c6f97142523403",
+          "leaked": false,
+          "evidence_id": "step-error-continuation-04"
+        },
+        {
+          "ordinal": 5,
+          "status": "ok",
+          "cache_status": "HIT",
+          "served_snapshot": "snap-v1",
+          "body_sha256": "b35e3fd1c13e1d7f17f55bb0c3dddb9565bc88d8e3e44bf119c6f97142523403",
+          "leaked": true,
+          "evidence_id": "step-error-continuation-05"
+        },
+        {
+          "ordinal": 6,
+          "status": "ok",
+          "cache_status": "HIT",
+          "served_snapshot": "snap-v1",
+          "body_sha256": "b35e3fd1c13e1d7f17f55bb0c3dddb9565bc88d8e3e44bf119c6f97142523403",
+          "leaked": true,
+          "evidence_id": "step-error-continuation-06"
+        }
+      ],
+      "temp_path": "/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/error-continuation",
+      "cleanup_ok": true,
+      "started_at": "2026-11-22T07:19:24.275654821Z",
+      "finished_at": "2026-11-22T07:19:24.311014155Z"
+    }
+  ],
+  "verifications": [
+    {
+      "id": "verify-uid6-0044-replay-unknown-extension-opaque.q7x",
+      "kind": "unknown-extension",
+      "subject": "opaque.q7x",
+      "passed": true,
+      "expected": {
+        "extension": ".q7x",
+        "known_extension": false,
+        "mime": "application/octet-stream",
+        "same_path": "/static/opaque.q7x",
+        "snapshot_count": 2
+      },
+      "actual": {
+        "extension": ".q7x",
+        "known_extension": false,
+        "mime": "application/octet-stream",
+        "same_path": "/static/opaque.q7x",
+        "snapshot_count": 2
+      },
+      "evidence_id": "verify-uid6-0044-replay-unknown-extension-opaque.q7x",
+      "created_at": "2026-11-22T07:19:24.313272592Z",
+      "detail": "Unknown extension must remain byte-oriented and both snapshots must expose the same logical path."
+    },
+    {
+      "id": "verify-uid6-0044-replay-order-change-forward-vs-reverse",
+      "kind": "order-change",
+      "subject": "forward-vs-reverse",
+      "passed": true,
+      "expected": {
+        "forward": "first request MISSes on snap-v1; snap-v2 then HITs stale snap-v1",
+        "invariant": "the second distinct snapshot is served from the first snapshot's cache entry",
+        "reverse": "first request MISSes on snap-v2; snap-v1 then HITs stale snap-v2"
+      },
+      "actual": {
+        "forward": [
+          {
+            "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+            "cache_status": "MISS",
+            "leaked": false,
+            "ordinal": 1,
+            "served_snapshot": "snap-v1"
+          },
+          {
+            "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+            "cache_status": "HIT",
+            "leaked": true,
+            "ordinal": 2,
+            "served_snapshot": "snap-v1"
+          },
+          {
+            "body_sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+            "cache_status": "HIT",
+            "leaked": true,
+            "ordinal": 3,
+            "served_snapshot": "snap-v1"
+          }
+        ],
+        "reverse": [
+          {
+            "body_sha256": "0a08b16db15f3307b95a58ca7cf76bea2ca38ce03aab3445df76c6ca20de0c41",
+            "cache_status": "MISS",
+            "leaked": false,
+            "ordinal": 1,
+            "served_snapshot": "snap-v2"
+          },
+          {
+            "body_sha256": "0a08b16db15f3307b95a58ca7cf76bea2ca38ce03aab3445df76c6ca20de0c41",
+            "cache_status": "HIT",
+            "leaked": true,
+            "ordinal": 2,
+            "served_snapshot": "snap-v2"
+          },
+          {
+            "body_sha256": "0a08b16db15f3307b95a58ca7cf76bea2ca38ce03aab3445df76c6ca20de0c41",
+            "cache_status": "HIT",
+            "leaked": true,
+            "ordinal": 3,
+            "served_snapshot": "snap-v2"
+          }
+        ]
+      },
+      "evidence_id": "verify-uid6-0044-replay-order-change-forward-vs-reverse",
+      "created_at": "2026-11-22T07:19:24.323842165Z",
+      "detail": "Changing request order changes which version is stale, proving the cache key omits snapshot/version."
+    },
+    {
+      "id": "verify-uid6-0044-replay-repeated-submission-same-and-cross-replay",
+      "kind": "repeated-submission",
+      "subject": "same-and-cross-replay",
+      "passed": true,
+      "expected": {
+        "cross_replay": "two clean cache replays with the same order produce identical step signatures",
+        "duplicate_submit": "all repeated submissions after the first HIT return the same body hash"
+      },
+      "actual": {
+        "cross_replay_identical": true,
+        "order-forward": {
+          "body_hashes": [
+            "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357"
+          ],
+          "cache_statuses": [
+            "HIT"
+          ],
+          "passed": true,
+          "submission_count": 3,
+          "unique_body_hashes": 1,
+          "unique_cache_statuses": 1
+        },
+        "order-reverse": {
+          "body_hashes": [
+            "0a08b16db15f3307b95a58ca7cf76bea2ca38ce03aab3445df76c6ca20de0c41"
+          ],
+          "cache_statuses": [
+            "HIT"
+          ],
+          "passed": true,
+          "submission_count": 3,
+          "unique_body_hashes": 1,
+          "unique_cache_statuses": 1
+        },
+        "repeat-forward-a": {
+          "body_hashes": [
+            "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357"
+          ],
+          "cache_statuses": [
+            "HIT"
+          ],
+          "passed": true,
+          "submission_count": 2,
+          "unique_body_hashes": 1,
+          "unique_cache_statuses": 1
+        },
+        "repeat-forward-b": {
+          "body_hashes": [
+            "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357"
+          ],
+          "cache_statuses": [
+            "HIT"
+          ],
+          "passed": true,
+          "submission_count": 2,
+          "unique_body_hashes": 1,
+          "unique_cache_statuses": 1
+        }
+      },
+      "evidence_id": "verify-uid6-0044-replay-repeated-submission-same-and-cross-replay",
+      "created_at": "2026-11-22T07:19:24.354483256Z",
+      "detail": "Repeated submissions are deterministic and do not repair the stale cache entry."
+    },
+    {
+      "id": "verify-uid6-0044-replay-error-continuation-partial.q7x-404",
+      "kind": "error-continuation",
+      "subject": "partial.q7x-404",
+      "passed": true,
+      "expected": {
+        "error_status": "error",
+        "error_step": 3,
+        "remaining_all_ok": true,
+        "remaining_steps": 3
+      },
+      "actual": {
+        "error_cache_status": "ERROR",
+        "error_status": "error",
+        "error_step": 3,
+        "final_step_ordinal": 6,
+        "remaining_all_ok": true,
+        "remaining_steps": 3
+      },
+      "evidence_id": "verify-uid6-0044-replay-error-continuation-partial.q7x-404",
+      "created_at": "2026-11-22T07:19:24.360472718Z",
+      "detail": "The missing v2 object is isolated; the two remaining tail.q7x objects are still processed."
+    },
+    {
+      "id": "verify-uid6-0044-replay-libfuzzer-cache-key-version-omission",
+      "kind": "libfuzzer",
+      "subject": "cache-key-version-omission",
+      "passed": true,
+      "expected": {
+        "artifact": "crash/assertion artifact retained",
+        "found": true,
+        "log_sha256": "matches sealed log",
+        "status": "completed",
+        "tool": "libFuzzer"
+      },
+      "actual": {
+        "artifact_path": "/home/hj/userfeedback3/uid6-0044/evidence/evidence/uid6-0044-replay/crash-a8b002410496730dbfc0fc9f42d9fa338b0a41ea",
+        "artifact_sha256": "c4d9fd3b0c81f0d3ee35ba96e30751ed1b9e9c7f331596a31c5bd26e19803325",
+        "exit_code": 77,
+        "found": true,
+        "log_path": "/home/hj/userfeedback3/uid6-0044/evidence/evidence/uid6-0044-replay/libfuzzer.log",
+        "log_sha256": "00b0b088f6d9c9fed58a19c49e7f102e319c4130eaf2174345fd9326a4dbb3a0",
+        "runs": 2000,
+        "status": "completed",
+        "tool": "libFuzzer"
+      },
+      "evidence_id": "verify-uid6-0044-replay-libfuzzer-cache-key-version-omission",
+      "created_at": "2026-11-22T07:19:25.349167661Z",
+      "detail": "libFuzzer must terminate on the version-blind cache assertion and retain its artifact and log."
+    },
+    {
+      "id": "verify-uid6-0044-replay-cleanup-temporary-state",
+      "kind": "cleanup",
+      "subject": "temporary-state",
+      "passed": true,
+      "expected": {
+        "temp_base_absent": true,
+        "temp_parent_absent": true
+      },
+      "actual": {
+        "records": [
+          {
+            "path": "/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay",
+            "existed_before": true,
+            "exists_after": false,
+            "action": "os.RemoveAll",
+            "status": "ok",
+            "created_at": "2026-11-22T07:19:25.353259419Z",
+            "evidence_id": "cleanup"
+          },
+          {
+            "path": "/home/hj/userfeedback3/uid6-0044/evidence/.tmp",
+            "existed_before": true,
+            "exists_after": false,
+            "action": "os.RemoveAll",
+            "status": "ok",
+            "created_at": "2026-11-22T07:19:25.353272999Z",
+            "evidence_id": "cleanup"
+          }
+        ],
+        "temp_base_absent": true,
+        "temp_parent_absent": true
+      },
+      "evidence_id": "verify-uid6-0044-replay-cleanup-temporary-state",
+      "created_at": "2026-11-22T07:19:25.370998988Z",
+      "detail": "All runtime snapshot trees are deleted after evidence is sealed in SQLite and on disk."
+    }
+  ],
+  "cleanup": [
+    {
+      "path": "/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay",
+      "existed_before": true,
+      "exists_after": false,
+      "action": "os.RemoveAll",
+      "status": "ok",
+      "created_at": "2026-11-22T07:19:25.353259419Z",
+      "evidence_id": "cleanup"
+    },
+    {
+      "path": "/home/hj/userfeedback3/uid6-0044/evidence/.tmp",
+      "existed_before": true,
+      "exists_after": false,
+      "action": "os.RemoveAll",
+      "status": "ok",
+      "created_at": "2026-11-22T07:19:25.353272999Z",
+      "evidence_id": "cleanup"
+    }
+  ],
+  "fuzz": {
+    "id": "fuzz-uid6-0044-replay",
+    "tool": "libFuzzer",
+    "version": "Ubuntu clang version 21.1.8 (6ubuntu1)",
+    "status": "completed",
+    "command": "/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/fuzz/cache_key_fuzzer -runs=2000 -timeout=10 -rss_limit_mb=512 -detect_leaks=0 -artifact_prefix=/home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/fuzz/artifacts/ /home/hj/userfeedback3/uid6-0044/evidence/.tmp/uid6-0044-replay/fuzz/corpus",
+    "runs": 2000,
+    "exit_code": 77,
+    "found": true,
+    "artifact_path": "/home/hj/userfeedback3/uid6-0044/evidence/evidence/uid6-0044-replay/crash-a8b002410496730dbfc0fc9f42d9fa338b0a41ea",
+    "artifact_sha256": "c4d9fd3b0c81f0d3ee35ba96e30751ed1b9e9c7f331596a31c5bd26e19803325",
+    "log_path": "/home/hj/userfeedback3/uid6-0044/evidence/evidence/uid6-0044-replay/libfuzzer.log",
+    "log_sha256": "00b0b088f6d9c9fed58a19c49e7f102e319c4130eaf2174345fd9326a4dbb3a0",
+    "started_at": "2026-11-22T07:19:24.365481062Z",
+    "finished_at": "2026-11-22T07:19:25.342263343Z",
+    "assertion": "CACHELEAK_ASSERT: key=/static/xq7xx.q7x first=snap-v1 second=snap-v1 version-omitted-from-cache-key"
+  },
+  "evidence_count": 37,
+  "temp_paths_left": 0,
+  "key_evidence_path": "/home/hj/userfeedback3/uid6-0044/evidence/evidence/uid6-0044-replay/manifest.json"
+}

@@ -1,0 +1,77 @@
+{
+  "objects": [
+    {
+      "captured_at": "2026-11-21T08:00:00Z",
+      "extension": ".q7x",
+      "key": "snap-v1:/static/opaque.q7x",
+      "known_extension": false,
+      "logical_path": "/static/opaque.q7x",
+      "mime": "application/octet-stream",
+      "sha256": "a1c4166475205b202910b4625817fa1394c44477f1392eb4da7e27bad3263357",
+      "size": 60,
+      "snapshot_id": "snap-v1",
+      "version": "release-2026.11.22-a"
+    },
+    {
+      "captured_at": "2026-11-21T08:01:00Z",
+      "extension": ".q7x",
+      "key": "snap-v2:/static/opaque.q7x",
+      "known_extension": false,
+      "logical_path": "/static/opaque.q7x",
+      "mime": "application/octet-stream",
+      "sha256": "0a08b16db15f3307b95a58ca7cf76bea2ca38ce03aab3445df76c6ca20de0c41",
+      "size": 59,
+      "snapshot_id": "snap-v2",
+      "version": "release-2026.11.22-b"
+    },
+    {
+      "captured_at": "2026-11-21T08:00:00Z",
+      "extension": ".q7x",
+      "key": "snap-v1:/static/tail.q7x",
+      "known_extension": false,
+      "logical_path": "/static/tail.q7x",
+      "mime": "application/octet-stream",
+      "sha256": "b35e3fd1c13e1d7f17f55bb0c3dddb9565bc88d8e3e44bf119c6f97142523403",
+      "size": 58,
+      "snapshot_id": "snap-v1",
+      "version": "release-2026.11.22-a"
+    },
+    {
+      "captured_at": "2026-11-21T08:01:00Z",
+      "extension": ".q7x",
+      "key": "snap-v2:/static/tail.q7x",
+      "known_extension": false,
+      "logical_path": "/static/tail.q7x",
+      "mime": "application/octet-stream",
+      "sha256": "56f68dae104d33930bd19723191645b82e57510eaad941be80444a5f8b4c7935",
+      "size": 57,
+      "snapshot_id": "snap-v2",
+      "version": "release-2026.11.22-b"
+    },
+    {
+      "captured_at": "2026-11-21T08:00:00Z",
+      "extension": ".q7x",
+      "key": "snap-v1:/static/partial.q7x",
+      "known_extension": false,
+      "logical_path": "/static/partial.q7x",
+      "mime": "application/octet-stream",
+      "sha256": "08c42d695f3c80d3d86512a6347ca2b2b3553ebe02dd52f95c8ebc082f59b96d",
+      "size": 68,
+      "snapshot_id": "snap-v1",
+      "version": "release-2026.11.22-a"
+    }
+  ],
+  "snapshots": [
+    {
+      "id": "snap-v1",
+      "label": "release-2026.11.22-a",
+      "created_at": "2026-11-21T08:00:00Z"
+    },
+    {
+      "id": "snap-v2",
+      "label": "release-2026.11.22-b",
+      "created_at": "2026-11-21T08:01:00Z"
+    }
+  ],
+  "unknown_extension": ".q7x"
+}
