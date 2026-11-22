@@ -1,0 +1,13 @@
+# container mount permission capture v1
+# target=ctr-7f3a namespace=mnt:4026531840
+#@anchor 1 label=prelude captured_at=2026-11-22T08:00:00.120Z
+100 1 0:52 / / rw,relatime shared:1 - overlay overlay rw,lowerdir=/lower,upperdir=/upper,workdir=/work
+101 100 0:53 / /proc rw,nosuid,nodev,noexec,relatime - proc proc rw
+102 100 0:54 / /sys ro,nosuid,nodev,noexec,relatime - sysfs sysfs ro
+#@anchor 2 label=host-mounts captured_at=2026-11-22T08:00:02.340Z
+103 100 8:1 / /host-etc rw,relatime - ext4 /dev/sda1 rw
+104 100 8:2 / /var/run/docker.sock rw,relatime - ext4 /dev/sda1 rw
+105 100 0:55 / /data rw,nosuid,nodev,noexec,relatime shared:7 - tmpfs tmpfs rw,size=64m
+106 100 0:56 / /etc/hosts ro,relatime - ext4 /dev/sda1 rw
+107 100 0:57 / /dev rw,nosuid,relatime shared:8 - devtmpfs none rw
+#@anchor 3 label=eof captured_at=2026-11-22T08:00:05.900Z

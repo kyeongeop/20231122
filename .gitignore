@@ -1,0 +1,5 @@
+/build/
+/mountaudit-artifacts/
+*.db
+*.db-shm
+*.db-wal
