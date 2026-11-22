@@ -1,0 +1,35 @@
+{
+  "sample": {
+    "id": 3,
+    "created_at": "2026-11-22T10:25:08.05576048Z",
+    "source": "seed:A3-payload",
+    "sha256": "bc1c868090a1a3ce4b31902d7775d9541718f3dcab22c898ae9032432d73a786",
+    "data": "gX7//3g="
+  },
+  "runs": [
+    {
+      "id": 1,
+      "run_at": "2026-11-22T10:25:13.135216335Z",
+      "parser": "vulnerable",
+      "outcome": "panic",
+      "detail": "runtime error: slice bounds out of range [:65539] with capacity 8",
+      "duration_ns": 6059
+    },
+    {
+      "id": 2,
+      "run_at": "2026-11-22T10:25:13.139404006Z",
+      "parser": "fixed",
+      "outcome": "rejected",
+      "anchor": "A3-payload",
+      "raw_offset": 4,
+      "detail": "wsframe: declared payload length out of bounds",
+      "duration_ns": 5943
+    }
+  ],
+  "exported_at": "2026-11-22T10:26:07.702628541Z",
+  "sha256": "bc1c868090a1a3ce4b31902d7775d9541718f3dcab22c898ae9032432d73a786",
+  "original_material": {
+    "path": ".wsframefix/originals/parser.go.orig",
+    "sha256": "67190efeb9dae4c747c01b097cc4458a0514452e67e66c5e43ab2b3573313b7e"
+  }
+}

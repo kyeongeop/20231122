@@ -1,0 +1,3 @@
+./parser.go
+./fuzz_test.go
+./parser_test.go
