@@ -1,0 +1,10 @@
+# 构建与 fuzz 产物
+fuzz/out/
+fuzz/corpus/
+
+# 审计运行产物
+artifacts/audit.db
+artifacts/check-page.html
+
+# 本地临时文件
+*.tmp

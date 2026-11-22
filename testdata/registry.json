@@ -1,0 +1,42 @@
+{
+  "trusted_sources": [
+    {
+      "id": "src-kernel-sec",
+      "name": "Kernel Security Team",
+      "pubkey": "sha256:9f2c41ab7d8e3c60b1a5d4e7f8091b2c3d4e5f60718293a4b5c6d7e8f9001122"
+    },
+    {
+      "id": "src-platform-ops",
+      "name": "Platform Ops",
+      "pubkey": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+    }
+  ],
+  "snapshots": [
+    {
+      "version": "v1",
+      "source_id": "src-kernel-sec",
+      "signature": "sha256:9f2c41ab7d8e3c60b1a5d4e7f8091b2c3d4e5f60718293a4b5c6d7e8f9001122",
+      "issued_at": "2026-10-01T00:00:00Z",
+      "syscalls": [
+        {"number": 0, "name": "read", "risk": "low"},
+        {"number": 1, "name": "write", "risk": "low"},
+        {"number": 59, "name": "execve", "risk": "high"},
+        {"number": 231, "name": "exit_group", "risk": "low"}
+      ]
+    },
+    {
+      "version": "v2",
+      "source_id": "src-kernel-sec",
+      "signature": "sha256:9f2c41ab7d8e3c60b1a5d4e7f8091b2c3d4e5f60718293a4b5c6d7e8f9001122",
+      "issued_at": "2026-11-15T00:00:00Z",
+      "syscalls": [
+        {"number": 0, "name": "read", "risk": "low"},
+        {"number": 1, "name": "write", "risk": "low"},
+        {"number": 41, "name": "socket", "risk": "medium"},
+        {"number": 59, "name": "execve", "risk": "high"},
+        {"number": 231, "name": "exit_group", "risk": "low"},
+        {"number": 257, "name": "openat", "risk": "medium"}
+      ]
+    }
+  ]
+}

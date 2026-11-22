@@ -1,0 +1,75 @@
+[
+  {
+    "id": "rec-001",
+    "raw": "{\"id\":\"rec-001\",\"source_id\":\"src-kernel-sec\",\"signature\":\"sha256:9f2c41ab7d8e3c60b1a5d4e7f8091b2c3d4e5f60718293a4b5c6d7e8f9001122\",\"version\":\"v2\",\"syscall_no\":41}",
+    "source_id": "src-kernel-sec",
+    "signature": "sha256:9f2c41ab7d8e3c60b1a5d4e7f8091b2c3d4e5f60718293a4b5c6d7e8f9001122",
+    "version": "v2",
+    "syscall_no": 41,
+    "truncated": false
+  },
+  {
+    "id": "rec-002",
+    "raw": "{\"id\":\"rec-002\",\"source_id\":\"src-kernel-sec\",\"signature\":\"sha256:9f2c41ab7d8e3c60b1a5d4e7f8091b2c3d4e5f60718293a4b5c6d7e8f9001122\",\"version\":\"v1\",\"syscall_no\":257}",
+    "source_id": "src-kernel-sec",
+    "signature": "sha256:9f2c41ab7d8e3c60b1a5d4e7f8091b2c3d4e5f60718293a4b5c6d7e8f9001122",
+    "version": "v1",
+    "syscall_no": 257,
+    "truncated": false
+  },
+  {
+    "id": "rec-003",
+    "raw": "{\"id\":\"rec-003\",\"source_id\":\"src-kernel-sec\",\"signature\":\"sha256:9f2c41ab7d8e3c60b1a5d4e7f8091b2c3d4e5f60718293a4b5c6d7e8f9001122\",\"version\":\"v2\",\"syscall_no\":59,\"truncated\":true,\"partial\":\"",
+    "source_id": "src-kernel-sec",
+    "signature": "",
+    "version": "v2",
+    "syscall_no": 59,
+    "truncated": true
+  },
+  {
+    "id": "rec-004",
+    "raw": "{\"id\":\"rec-004\",\"source_id\":\"src-unknown-x\",\"signature\":\"sha256:deadbeef\",\"version\":\"v2\",\"syscall_no\":0}",
+    "source_id": "src-unknown-x",
+    "signature": "sha256:deadbeef",
+    "version": "v2",
+    "syscall_no": 0,
+    "truncated": false
+  },
+  {
+    "id": "rec-005",
+    "raw": "{\"id\":\"rec-005\",\"source_id\":\"src-kernel-sec\",\"signature\":\"sha256:9f2c41ab7d8e3c60b1a5d4e7f8091b2c3d4e5f60718293a4b5c6d7e8f9001122\",\"version\":\"v9\",\"syscall_no\":1}",
+    "source_id": "src-kernel-sec",
+    "signature": "sha256:9f2c41ab7d8e3c60b1a5d4e7f8091b2c3d4e5f60718293a4b5c6d7e8f9001122",
+    "version": "v9",
+    "syscall_no": 1,
+    "truncated": false
+  },
+  {
+    "id": "rec-006",
+    "raw": "{\"id\":\"rec-006\",\"source_id\":\"src-kernel-sec\",\"signature\":\"sha256:badsignature0000000000000000000000000000000000000000000000000000000000\",\"version\":\"v2\",\"syscall_no\":0}",
+    "source_id": "src-kernel-sec",
+    "signature": "sha256:badsignature0000000000000000000000000000000000000000000000000000000000",
+    "version": "v2",
+    "syscall_no": 0,
+    "truncated": false
+  },
+  {
+    "id": "rec-007",
+    "raw": "{\"id\":\"rec-007\",\"source_id\":\"src-kernel-sec\",\"broken-json",
+    "source_id": "src-kernel-sec",
+    "signature": "",
+    "version": "v2",
+    "syscall_no": 0,
+    "truncated": false,
+    "parse_error": "unexpected end of JSON input"
+  },
+  {
+    "id": "rec-008",
+    "raw": "{\"id\":\"rec-008\",\"source_id\":\"src-platform-ops\",\"signature\":\"sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\",\"version\":\"v2\",\"syscall_no\":231}",
+    "source_id": "src-platform-ops",
+    "signature": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "version": "v2",
+    "syscall_no": 231,
+    "truncated": false
+  }
+]
