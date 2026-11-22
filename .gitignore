@@ -1,0 +1,10 @@
+/build/
+/apiskew.db
+/apiskew.db-shm
+/apiskew.db-wal
+/artifacts/e2e/
+/artifacts/sessions/
+/artifacts/*.db
+/artifacts/*.db-shm
+/artifacts/*.db-wal
+/artifacts/fix-*.json
