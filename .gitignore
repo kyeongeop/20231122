@@ -1,0 +1,15 @@
+# Build outputs
+fuzz/bin/
+
+# Generated fuzz cache / crash artifacts. Regression corpus under
+# internal/stream/testdata/fuzz/FuzzParse is intentionally tracked.
+**/testdata/fuzz/FuzzParse/cache/
+**/testdata/fuzz/FuzzParse/*.tmp
+*.log
+
+# Demo artifacts are regenerated via `truncstream demo`.
+artifacts/demo*/
+
+# Local SQLite sidecars
+*.sqlite-wal
+*.sqlite-shm
