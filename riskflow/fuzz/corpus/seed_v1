@@ -1,0 +1,4 @@
+{"record_id":"R-1001","package":"lodash","version":"4.17.21","ecosystem":"npm","severity":"low","decision":"allow","role":"reviewer","input_hash":"","schema":""}
+{"record_id":"R-1002","package":"log4j-core","version":"2.14.0","ecosystem":"maven","severity":"critical","decision":"allow","role":"guest","input_hash":"","schema":""}
+{"record_id":"R-1003","package":"openssl","version":"1.1.1k","ecosystem":"deb","severity":"high","decision":"allow","role":"approver","input_hash":"","schema":""}
+{"record_id":"R-1004","package":"requests","version":"2.20.0","ecosystem":"pypi","severity":"medium","decision":"deny","role":"ci-bot","input_hash":"","schema":""}

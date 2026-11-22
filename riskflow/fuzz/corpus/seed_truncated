@@ -1,0 +1,8 @@
+294
+{"schema":"v2","batch_id":"BATCH-2026-1122","checksum":"c5119b751aae0142aefabd5c86fe1705d72a089334098c702e6788599b316dcc","payload":{"record_id":"R-1001","package":"lodash","version":"4.17.21","ecosystem":"npm","severity":"low","decision":"allow","role":"reviewer","input_hash":"","schema":""}}
+301
+{"schema":"v2","batch_id":"BATCH-2026-1122","checksum":"634873c9c70fec56d08c546af46cedfe06b0a936d2ba25a418916e0db11518b4","payload":{"record_id":"R-1002","package":"log4j-core","version":"2.14.0","ecosystem":"maven","severity":"critical","decision":"allow","role":"guest","input_hash":"","schema":""}}
+295
+{"schema":"v2","batch_id":"BATCH-2026-1122","checksum":"2521cd09b9511170c3c6700f98456350138b94a9badb18b30d3f265f14c6c33d","payload":{"record_id":"R-1003","package":"openssl","version":"1.1.1k","ecosystem":"deb","severity":"high","decision":"allow","role":"approver","input_hash":"","schema":""}}
+296
+{"schema":"v2","batch_id":"BATCH-2026-1122","checksum":"7efdb41cc9fc1141c08aed28454867562d5838096463c418e5d46d69a8135cce","payload":{"record_id":"R-1004","package":"requests","version":"2.20.0","ecosystem":"pypi","severity":"medium","decision":"deny","role"

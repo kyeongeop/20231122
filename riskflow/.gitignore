@@ -1,0 +1,10 @@
+# build outputs and local evidence databases
+build/
+fuzz/build/
+fuzz/artifacts/
+fuzz/poison_in/
+*.db
+*.db-wal
+*.db-shm
+bin/
+testdata/generated/
