@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Webhook 签名验证 · 来源检查</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Trace 来源检查">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M8.2 12.8 5.7 15.3a3.5 3.5 0 0 0 5 5l3.5-3.5M15.8 11.2l2.5-2.5a3.5 3.5 0 0 0-5-5l-3.5 3.5M8.2 15.8l7.6-7.6"/></svg>
+        </span>
+        <span class="brand-word">trace<span>/</span>lab</span>
+      </a>
+      <div class="topbar-divider"></div>
+      <div class="topbar-case">
+        <span class="muted">来源检查台</span>
+        <strong id="top-case-id">WH-2026-1122</strong>
+      </div>
+      <div class="topbar-spacer"></div>
+      <div class="runtime-pill" title="本地 SQLite 证据库已连接">
+        <span class="pulse"></span>
+        <span>SQLite</span>
+        <span class="runtime-sep"></span>
+        <span class="mono">local</span>
+      </div>
+      <button class="btn btn-quiet" id="cleanup-button" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"/></svg>
+        清理临时状态
+      </button>
+    </header>
+
+    <aside class="sidebar">
+      <nav class="side-nav" aria-label="案件导航">
+        <a class="nav-item active" href="#overview">
+          <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 10h16M9 10v9"/></svg></span>
+          <span>检查概览</span><span class="nav-count" id="nav-object-count">04</span>
+        </a>
+        <a class="nav-item" href="#objects">
+          <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg></span>
+          <span>来源对象</span>
+        </a>
+        <a class="nav-item" href="#evidence">
+          <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="m12 3 7 4v5c0 4.4-2.9 7.5-7 9-4.1-1.5-7-4.6-7-9V7z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <span>证据链</span><span class="nav-count" id="nav-evidence-count">--</span>
+        </a>
+        <a class="nav-item" href="#fuzz">
+          <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M7 8h10l2 4v6H5v-6zM9 8V5h6v3M9 14h.01M15 14h.01M10 17h4"/></svg></span>
+          <span>Fuzz 记录</span>
+        </a>
+      </nav>
+
+      <div class="side-section">
+        <div class="side-label">批次连续性</div>
+        <div class="batch-card" id="batch-card">
+          <div class="batch-line"><span class="pulse amber"></span><strong>已继续</strong><span class="mono">4 / 4</span></div>
+          <p>1 个异常对象被隔离，剩余对象继续完成。</p>
+          <div class="batch-track"><i></i><i></i><i class="bad"></i><i></i></div>
+          <div class="batch-legend"><span>capture</span><span>verify</span><span>store</span></div>
+        </div>
+      </div>
+
+      <div class="side-section side-temp">
+        <div class="side-label">临时状态</div>
+        <div class="temp-row">
+          <span class="temp-dot"></span>
+          <div><strong id="temp-state-title">replay-01JQ7P9A4M</strong><small id="temp-state-meta">正在读取…</small></div>
+        </div>
+      </div>
+
+      <div class="side-foot">
+        <span class="shield-mini"><svg viewBox="0 0 24 24"><path d="m12 3 7 4v5c0 4.4-2.9 7.5-7 9-4.1-1.5-7-4.6-7-9V7z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <div>证据只读归档<small>结论 ⇄ 原始输入 ⇄ 步骤</small></div>
+      </div>
+    </aside>
+
+    <main class="workspace" id="overview">
+      <section class="case-heading">
+        <div>
+          <div class="breadcrumb"><span>CASES</span><i>/</i><span id="breadcrumb-case">WH-2026-1122</span><i>/</i><strong>SOURCE REVIEW</strong></div>
+          <div class="title-row">
+            <h1>Webhook 签名验证</h1>
+            <span class="title-badge">来源检查</span>
+          </div>
+          <p class="subtitle">以原始字节为锚点，复核扩展名、版本快照与验签边界。所有判读均可回放到输入和步骤。</p>
+        </div>
+        <div class="heading-actions">
+          <button class="btn" id="export-button" type="button">
+            <svg viewBox="0 0 24 24"><path d="M12 3v11m-4-4 4 4 4-4M5 17v3h14v-3"/></svg>
+            导出证据
+          </button>
+          <button class="btn btn-primary" id="recheck-all" type="button">
+            <svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 6M20 4v7h-7"/></svg>
+            全部复验
+          </button>
+        </div>
+      </section>
+
+      <section class="stat-grid" aria-label="案件摘要">
+        <article class="stat-card">
+          <span class="stat-label">来源对象</span>
+          <strong id="stat-objects">--</strong>
+          <small>1 未知扩展 · 2 版本快照</small>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">已验证</span>
+          <strong id="stat-verified" class="good">--</strong>
+          <small>签名与证据链匹配</small>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">未决边界</span>
+          <strong id="stat-indeterminate" class="warn">--</strong>
+          <small>300s 时间窗恰好命中</small>
+        </article>
+        <article class="stat-card stat-wide">
+          <div class="stat-label-row"><span class="stat-label">来源覆盖</span><span class="mono" id="stat-coverage-label">100.0%</span></div>
+          <div class="coverage-bar"><i id="coverage-fill"></i></div>
+          <small><span id="stat-evidence">--</span> 条证据 · 结论全部带引用</small>
+        </article>
+      </section>
+
+      <div id="boundary-alert" class="boundary-alert" role="status">
+        <span class="alert-icon"><svg viewBox="0 0 24 24"><path d="M12 8v5m0 3v.01M10.3 4.6 3.1 17a2 2 0 0 0 1.7 3h14.4a2 2 0 0 0 1.7-3L13.7 4.6a2 2 0 0 0-3.4 0Z"/></svg></span>
+        <div><strong>判读边界已保留</strong><span id="boundary-alert-text">正在读取边界证据…</span></div>
+        <button class="alert-link" id="open-boundary" type="button">查看该对象 <span>→</span></button>
+      </div>
+
+      <div class="inspection-grid">
+        <section class="panel object-panel" id="objects">
+          <div class="panel-head">
+            <div><span class="eyebrow">OBJECT SET</span><h2>来源对象</h2></div>
+            <div class="head-meta"><span class="mono" id="object-sort">SORT / CAPTURE</span></div>
+          </div>
+          <div class="filter-row" role="group" aria-label="对象筛选">
+            <button class="chip active" data-filter="all" type="button">全部 <span>04</span></button>
+            <button class="chip" data-filter="snapshot" type="button">快照 <span>02</span></button>
+            <button class="chip" data-filter="exception" type="button">异常 <span>01</span></button>
+          </div>
+          <div id="object-list" class="object-list" aria-live="polite">
+            <div class="skeleton-row"></div>
+            <div class="skeleton-row"></div>
+            <div class="skeleton-row"></div>
+            <div class="skeleton-row"></div>
+          </div>
+          <div class="panel-foot-note">
+            <span class="foot-dot"></span>
+            异常对象不会阻断批次；证据写入以对象为事务边界。
+          </div>
+          <div class="object-notes">
+            <div><span>未知扩展</span><strong>仅作元数据，验签取原始字节</strong></div>
+            <div><span>版本差异</span><strong>v2 新增 300s 时间窗，落点第 87 行</strong></div>
+            <div><span>默认策略</span><strong>未决不升级为通过，异常隔离后继续</strong></div>
+          </div>
+        </section>
+
+        <section class="panel detail-panel" id="detail-panel" aria-live="polite">
+          <div class="detail-loading">正在装载证据链…</div>
+        </section>
+      </div>
+
+      <div class="lower-grid">
+        <section class="panel evidence-panel" id="evidence">
+          <div class="panel-head compact">
+            <div><span class="eyebrow">KEY EVIDENCE</span><h2>关键证据</h2></div>
+            <button class="text-button" id="open-all-evidence" type="button">全部证据 <span>→</span></button>
+          </div>
+          <div id="evidence-table" class="evidence-table"></div>
+        </section>
+        <section class="panel fuzz-panel" id="fuzz">
+          <div class="panel-head compact">
+            <div><span class="eyebrow">LIBFUZZER</span><h2>Fuzz 证据</h2></div>
+            <span class="status-badge clean" id="fuzz-status">clean</span>
+          </div>
+          <div id="fuzz-content" class="fuzz-content"></div>
+        </section>
+      </div>
+
+      <section class="panel operations-panel">
+        <div class="panel-head compact">
+          <div><span class="eyebrow">AUDIT TRAIL</span><h2>处理日志</h2></div>
+          <span class="muted mono">SQLite / operations</span>
+        </div>
+        <div id="operation-list" class="operation-list"></div>
+      </section>
+
+      <footer class="workspace-foot">
+        <span>TRACE/LAB · Webhook provenance</span>
+        <span class="mono">Go · libFuzzer · SQLite</span>
+      </footer>
+    </main>
+  </div>
+
+  <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+  <aside class="drawer" id="evidence-drawer" aria-hidden="true" aria-labelledby="drawer-title">
+    <div class="drawer-head">
+      <div><span class="eyebrow" id="drawer-kicker">EVIDENCE DETAIL</span><h2 id="drawer-title">证据</h2></div>
+      <button class="icon-button" id="drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+    <div id="drawer-body" class="drawer-body"></div>
+  </aside>
+
+  <div class="modal-backdrop" id="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-mark"><svg viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13"/></svg></div>
+      <h2 id="modal-title">清理临时复验状态？</h2>
+      <p>仅移除 replay 工作目录和 temp_state 记录。原始输入、版本快照、结论和处理步骤仍保留在 SQLite 中。</p>
+      <div class="modal-actions">
+        <button class="btn" id="modal-cancel" type="button">取消</button>
+        <button class="btn btn-danger" id="modal-confirm" type="button">确认清理</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/assets/app.js" defer></script>
+</body>
+</html>
