@@ -1,0 +1,6 @@
+tve.db
+fuzz/tve_fuzz.a
+fuzz/tve_fuzz.h
+fuzz/replay
+artifacts/material.bin
+artifacts/material.bin.sha256
