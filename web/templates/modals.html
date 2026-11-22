@@ -1,0 +1,151 @@
+{{define "drawer"}}
+<div class="drawer-layer" id="drawer-layer" aria-hidden="true">
+  <div class="drawer-scrim" data-close-drawer></div>
+  <aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+    <header class="drawer-head">
+      <div>
+        <span class="overline" id="drawer-kicker">EVIDENCE</span>
+        <h2 id="drawer-title">证据详情</h2>
+      </div>
+      <button class="icon-button bordered" data-close-drawer aria-label="关闭">
+        <svg viewBox="0 0 18 18" fill="none"><path d="m5 5 8 8M13 5l-8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </button>
+    </header>
+    <div class="drawer-body" id="drawer-content"></div>
+    <footer class="drawer-foot" id="drawer-footer">
+      <span><span class="status-dot"></span> 已写入 SQLite</span>
+      <button class="button ghost small" data-close-drawer>关闭</button>
+    </footer>
+  </aside>
+</div>
+{{end}}
+
+{{define "modals"}}
+<div class="modal-layer" id="modal-layer" aria-hidden="true">
+  <div class="modal-scrim" data-close-modal></div>
+
+  <section class="modal new-check-modal" data-modal="new-check" role="dialog" aria-modal="true" aria-labelledby="new-check-title">
+    <header class="modal-head">
+      <div>
+        <span class="overline">NEW SOURCE CHECK</span>
+        <h2 id="new-check-title">新建日志注入检查</h2>
+        <p>原始输入只写入一次；后续每次取消或重跑都引用同一份不可变快照。</p>
+      </div>
+      <button class="icon-button bordered" data-close-modal aria-label="关闭">
+        <svg viewBox="0 0 18 18" fill="none"><path d="m5 5 8 8M13 5l-8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </button>
+    </header>
+    <div class="modal-body">
+      <div class="form-grid two">
+        <label class="field"><span>检查名称</span><input id="new-check-title-input" value="日志注入 · 来源检查"></label>
+        <label class="field"><span>来源标识</span><input id="new-check-source" value="manual / workspace"></label>
+      </div>
+      <label class="field file-field">
+        <span>日志内容 <em>粘贴原始日志；最多 2 MB</em></span>
+        <textarea id="new-check-input" rows="9" placeholder="2026-11-22T20:39:58Z INFO edge.request ..."></textarea>
+      </label>
+      <div class="form-actions-row">
+        <button class="text-button" id="load-example">载入示例日志</button>
+        <label class="upload-button">
+          <input type="file" id="new-check-file" accept=".log,.txt,.jsonl,text/plain" hidden>
+          <svg viewBox="0 0 16 16" fill="none"><path d="M8 10.5V2.8M5.3 5.5 8 2.8l2.7 2.7M3 10.5v2.7h10v-2.7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          从文件读取
+        </label>
+        <span class="input-counter" id="input-counter">0 B</span>
+      </div>
+      <div class="modal-note">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 2.6 14 13H2L8 2.6Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/><path d="M8 6.2v2.7M8 11v.1" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+        启动后可随时中途取消。已完成的步骤、原始输入和证据都会保留，可在处理记录中追溯。
+      </div>
+    </div>
+    <footer class="modal-foot">
+      <button class="button ghost" data-close-modal>取消</button>
+      <button class="button primary" id="start-check">开始检查 <span>→</span></button>
+    </footer>
+  </section>
+
+  <section class="modal confirm-modal" data-modal="human-confirm" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+    <header class="modal-head">
+      <div>
+        <span class="overline">HUMAN ATTESTATION</span>
+        <h2 id="confirm-title">记录人工确认</h2>
+        <p>人工结论独立存证，不会改写自动结论。</p>
+      </div>
+      <button class="icon-button bordered" data-close-modal aria-label="关闭">
+        <svg viewBox="0 0 18 18" fill="none"><path d="m5 5 8 8M13 5l-8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </button>
+    </header>
+    <div class="modal-body">
+      <div class="decision-grid" id="verdict-options">
+        <label class="decision-card">
+          <input type="radio" name="human-verdict" value="confirmed" {{if or (eq .Check.HumanVerdict "confirmed") (not .Check.HumanVerdict)}}checked{{end}}>
+          <span class="decision-icon danger"><svg viewBox="0 0 18 18" fill="none"><path d="M9 2.5 15 13H3L9 2.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M9 6.4v3M9 11.6v.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+          <span><strong>确认注入</strong><small>与自动结论一致或证据足以确认</small></span>
+        </label>
+        <label class="decision-card">
+          <input type="radio" name="human-verdict" value="benign" {{if eq .Check.HumanVerdict "benign"}}checked{{end}}>
+          <span class="decision-icon safe"><svg viewBox="0 0 18 18" fill="none"><path d="M9 2.5 15 5v4c0 3-2.3 5-6 6-3.7-1-6-3-6-6V5l6-2.5Z" stroke="currentColor" stroke-width="1.2"/><path d="m6.5 8.8 1.6 1.6 3.2-3.3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+          <span><strong>确认无害</strong><small>边界或编码属于合法业务行为</small></span>
+        </label>
+        <label class="decision-card">
+          <input type="radio" name="human-verdict" value="review" {{if eq .Check.HumanVerdict "review"}}checked{{end}}>
+          <span class="decision-icon amber"><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M9 5.5V9l2.3 1.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+          <span><strong>需进一步复核</strong><small>当前证据不足，保留开放状态</small></span>
+        </label>
+      </div>
+      <div class="form-grid two">
+        <label class="field"><span>复核人</span><input id="confirm-reviewer" value="{{if .Check.HumanReviewer}}{{.Check.HumanReviewer}}{{else}}周雪 · 安全运营{{end}}"></label>
+        <label class="field"><span>关联处置单 <em>可选</em></span><input id="confirm-ticket" placeholder="SEC-4821"></label>
+      </div>
+      <label class="field"><span>判断依据 <em>必填，将进入审计轨迹</em></span><textarea id="confirm-note" rows="5" placeholder="说明你核对了哪份原始输入、如何处理边界证据，以及最终判断。">{{.Check.HumanNote}}</textarea></label>
+      <div class="modal-note">
+        <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.8" stroke="currentColor" stroke-width="1.1"/><path d="M8 7.2v3.3M8 5v.1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        自动报告保持不变；新的人工结论会追加审计事件并显示在报告右侧。
+      </div>
+    </div>
+    <footer class="modal-foot">
+      <span class="modal-foot-note">操作人将记录为当前工作区成员</span>
+      <button class="button ghost" data-close-modal>取消</button>
+      <button class="button primary" id="save-confirm">保存人工结论</button>
+    </footer>
+  </section>
+
+  <section class="modal audit-modal" data-modal="audit" role="dialog" aria-modal="true" aria-labelledby="audit-title">
+    <header class="modal-head">
+      <div><span class="overline">AUDIT TRAIL</span><h2 id="audit-title">完整审计轨迹</h2><p>所有取消、失败、完成与人工确认事件均追加写入。</p></div>
+      <button class="icon-button bordered" data-close-modal aria-label="关闭"><svg viewBox="0 0 18 18" fill="none"><path d="m5 5 8 8M13 5l-8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+    </header>
+    <div class="modal-body audit-modal-body">
+      {{range .Check.Audits}}
+      <div class="audit-line">
+        <span class="audit-dot {{if eq .Event "attempt.cancelled"}}warn{{else if eq .Event "attempt.failed"}}bad{{else if eq .Event "human.confirmed"}}human{{end}}"></span>
+        <span class="audit-line-content"><strong>{{.Event}}</strong><p>{{.Detail}}</p><small>{{.Actor}} · {{fmtDateTime .CreatedAt}}</small></span>
+      </div>
+      {{end}}
+    </div>
+    <footer class="modal-foot"><span class="modal-foot-note">{{len .Check.Audits}} 条不可变事件</span><button class="button ghost" data-close-modal>关闭</button></footer>
+  </section>
+
+  <section class="modal evidence-modal" data-modal="evidence-index" role="dialog" aria-modal="true" aria-labelledby="evidence-title">
+    <header class="modal-head">
+      <div><span class="overline">EVIDENCE INDEX</span><h2 id="evidence-title">证据索引</h2><p>每一项都保存哈希、原始内容和关联步骤。</p></div>
+      <button class="icon-button bordered" data-close-modal aria-label="关闭"><svg viewBox="0 0 18 18" fill="none"><path d="m5 5 8 8M13 5l-8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+    </header>
+    <div class="modal-body">
+      <table class="evidence-table">
+        <thead><tr><th>ID</th><th>证据</th><th>类型</th><th>大小</th><th>SHA-256</th><th></th></tr></thead>
+        <tbody>
+          {{range .Check.Evidence}}
+          <tr>
+            <td class="mono">{{.ID}}</td><td>{{.Label}}</td><td>{{.Kind}}</td><td>{{.Size}} B</td>
+            <td class="mono">{{shortSHA .SHA256}}</td>
+            <td><button class="text-button" data-evidence-id="{{.ID}}">打开</button></td>
+          </tr>
+          {{end}}
+        </tbody>
+      </table>
+    </div>
+    <footer class="modal-foot"><span class="modal-foot-note">SQLite · WAL · 只追加</span><button class="button ghost" data-close-modal>关闭</button></footer>
+  </section>
+</div>
+{{end}}

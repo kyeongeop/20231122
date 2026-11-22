@@ -1,0 +1,27 @@
+{{define "running-banner"}}
+<section class="running-banner">
+  <span class="running-orb"></span>
+  <div>
+    <strong>检查正在运行</strong>
+    <span>原始输入和每一步中间产物会即时写入 SQLite。可随时中途取消，已产生的证据不会丢失。</span>
+  </div>
+  <button class="button danger-ghost" data-cancel-current>中途取消</button>
+</section>
+{{end}}
+
+{{define "interruption-banner"}}
+<section class="interruption-banner">
+  <span class="interruption-icon">
+    <svg viewBox="0 0 20 20" fill="none"><path d="M10 3.2 17 16H3L10 3.2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M10 7.2v3.6M10 13.3v.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </span>
+  <div class="interruption-copy">
+    <strong>处理过程有中断，来源链仍然完整</strong>
+    <span><b>{{len .Cancellations}} 次中途取消</b>{{if .Failure}} · 1 次写入失败{{end}} · {{.RetainedCount}} 项关键证据保持只读</span>
+  </div>
+  <div class="interruption-events">
+    {{range .Cancellations}}<span class="mini-event warn">#{{printf "%02d" .Number}} 取消</span>{{end}}
+    {{if .Failure}}<span class="mini-event bad">#{{printf "%02d" .Failure.Number}} 失败</span>{{end}}
+  </div>
+  <a href="#attempt-history" class="text-link">查看处理记录 <span>→</span></a>
+</section>
+{{end}}

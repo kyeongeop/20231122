@@ -1,0 +1,128 @@
+{{define "processing"}}
+<section class="card processing-card" id="attempt-history">
+  <header class="section-head">
+    <div>
+      <div class="section-title-row">
+        <span class="section-index">02</span>
+        <h2>处理记录与步骤</h2>
+        <span class="section-badge">{{len .Check.Attempts}} 次尝试</span>
+      </div>
+      <p>取消不会删除证据；每次重跑都从同一份不可变输入开始。</p>
+    </div>
+    <div class="processing-summary">
+      <span class="summary-stat"><b>{{len .Cancellations}}</b> 中途取消</span>
+      {{if .Failure}}<span class="summary-stat danger"><b>1</b> 失败</span>{{end}}
+      <span class="summary-stat ok"><b>{{.CompletedCount}}</b> 完成</span>
+    </div>
+  </header>
+
+  <div class="attempt-strip" role="tablist" aria-label="处理尝试">
+    {{$active := .Active}}
+    {{range .Check.Attempts}}
+    <button class="attempt-slot {{if eq .ID $active.ID}}active{{end}} {{statusClass .Status}}" data-attempt-target="{{.ID}}" role="tab" aria-selected="{{if eq .ID $active.ID}}true{{else}}false{{end}}">
+      <span class="attempt-top"><b>#{{printf "%02d" .Number}}</b><span class="attempt-state"><i></i>{{statusLabel .Status}}</span></span>
+      <span class="attempt-time">{{shortTime .StartedAt}} {{if .EndedAt}}→ {{shortTime .EndedAt}}{{end}}</span>
+      <span class="attempt-bottom">
+        <span>{{len .Steps}} 步 · {{duration .}}</span>
+        {{if eq .Status "cancelled"}}<em>{{.EvidenceCount}} 份证据</em>{{else if eq .Status "failed"}}<em>3 份证据</em>{{else}}<em>完整来源链</em>{{end}}
+      </span>
+    </button>
+    {{end}}
+  </div>
+
+  <div class="attempt-details">
+    {{range .Check.Attempts}}
+    <div class="attempt-detail {{if eq .ID $active.ID}}active{{end}}" data-attempt-detail="{{.ID}}">
+      <div class="attempt-detail-head">
+        <div class="attempt-heading">
+          <span class="attempt-number">#{{printf "%02d" .Number}}</span>
+          <div>
+            <h3>{{if eq .Status "completed"}}第 {{.Number}} 次运行 · 自动结论来源{{else if eq .Status "cancelled"}}第 {{.Number}} 次运行 · 中途取消{{else}}第 {{.Number}} 次运行 · 处理失败{{end}}</h3>
+            <p>{{fmtDateTime .StartedAt}}{{if .EndedAt}} — {{fmtDateTime .EndedAt}}{{end}} · {{duration .}}</p>
+          </div>
+        </div>
+        <span class="status-badge {{statusClass .Status}}"><span></span>{{statusLabel .Status}}</span>
+      </div>
+
+      {{if eq .Status "cancelled"}}
+      <div class="attempt-callout cancelled">
+        <span class="callout-icon">
+          <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.3"/><path d="M7.5 7.5h5v5h-5z" stroke="currentColor" stroke-width="1.25"/></svg>
+        </span>
+        <div>
+          <strong>中途取消 · 由 {{.CancelledBy}}</strong>
+          <p>{{.CancelReason}}</p>
+        </div>
+        <span class="retained-pill">{{.EvidenceCount}} 项证据保留</span>
+        <button class="button ghost tiny" data-retry-input>用原始输入重跑</button>
+      </div>
+      {{end}}
+
+      {{if eq .Status "failed"}}
+      <div class="attempt-callout failed">
+        <span class="callout-icon">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M10 3.2 17 16H3L10 3.2Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M10 7v3.6M10 13v.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </span>
+        <div>
+          <strong>{{.ErrorCode}} · {{.ErrorMessage}}</strong>
+          <p>失败前的步骤和 {{.EvidenceCount}} 项证据保持只读，可从此处恢复。</p>
+        </div>
+        <a class="button ghost tiny" href="/checks/{{$.Check.ID}}/export">下载部分证据</a>
+      </div>
+      <ol class="next-actions">
+        {{range $i, $action := .NextActions}}
+        <li><span>{{add $i 1}}</span>{{$action}}</li>
+        {{end}}
+      </ol>
+      {{end}}
+
+      <div class="step-timeline">
+        {{range .Steps}}
+        <div class="step-row {{statusClass .Status}} {{if .Ambiguous}}ambiguous{{end}}"
+             role="button" tabindex="0"
+             data-step-title="{{.Title}}"
+             data-step-phase="{{.Phase}}"
+             data-step-status="{{statusLabel .Status}}"
+             data-step-summary="{{.Summary}}"
+             data-step-input="{{.InputExcerpt}}"
+             data-step-output="{{.OutputExcerpt}}"
+             data-step-tool="{{.Tool}}"
+             data-step-time="{{shortTime .StartedAt}}">
+          <div class="step-marker">
+            <span>{{printf "%02d" .Position}}</span>
+            <i></i>
+          </div>
+          <div class="step-body">
+            <div class="step-title-line">
+              <strong>{{.Title}}</strong>
+              {{if .Ambiguous}}<span class="tiny-badge amber">边界待判</span>{{end}}
+              <span class="step-tool">{{.Tool}}</span>
+              <span class="step-status {{statusClass .Status}}">{{statusLabel .Status}}</span>
+            </div>
+            <p>{{.Summary}}</p>
+            <div class="step-meta">
+              <span>{{shortTime .StartedAt}}</span>
+              {{if .EvidenceIDs}}
+              <span class="meta-sep"></span>
+              {{range .EvidenceIDs}}<button class="evidence-chip" data-evidence-id="{{.}}">{{.}} <b>↗</b></button>{{end}}
+              {{end}}
+            </div>
+          </div>
+          <span class="step-open">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M6 3.5 10.5 8 6 12.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+        {{end}}
+      </div>
+      {{if eq .Status "completed"}}
+      <div class="attempt-complete-line">
+        <span class="status-dot"></span>
+        <span>来源链闭合 · 自动结论与 6 个处理步骤已关联</span>
+        <span class="mono">{{.ID}}</span>
+      </div>
+      {{end}}
+    </div>
+    {{end}}
+  </div>
+</section>
+{{end}}

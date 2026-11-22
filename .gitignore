@@ -1,0 +1,8 @@
+data/
+fuzz/build/
+fuzz/artifacts/
+artifacts/*.png
+*.db
+*.db-shm
+*.db-wal
+node_modules/

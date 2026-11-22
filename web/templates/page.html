@@ -1,0 +1,54 @@
+{{define "page.html"}}
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{.Check.ID}} · 日志注入来源检查</title>
+  <meta name="theme-color" content="#111d24">
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body data-check-id="{{.Check.ID}}" data-attempt-id="{{if .Active}}{{.Active.ID}}{{end}}" data-status="{{.Check.Status}}">
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+  <div class="app-shell">
+    {{template "sidebar" .}}
+    <div class="main-shell">
+      {{template "topbar" .}}
+      <main class="content">
+        {{template "case-head" .}}
+        {{if .Running}}{{template "running-banner" .}}{{end}}
+        {{if or .Cancellations .Failure}}{{template "interruption-banner" .}}{{end}}
+        <div class="content-grid">
+          <div class="primary-column">
+            {{template "verdict-grid" .}}
+            {{template "source-chain" .}}
+            {{template "processing" .}}
+            {{template "reports" .}}
+          </div>
+          <aside class="rail">
+            {{template "rail-top" .}}
+            {{template "rail-boundary" .}}
+            {{template "rail-evidence" .}}
+            {{if .Failure}}{{template "rail-recovery" .}}{{end}}
+            {{template "rail-audit" .}}
+          </aside>
+        </div>
+        <footer class="page-footer">
+          <span><span class="status-dot"></span> 来源链已封存</span>
+          <span>Go · SQLite WAL · libFuzzer / LLVM 20.1.8</span>
+          <span>tracecheck / v0.9.4</span>
+        </footer>
+      </main>
+    </div>
+  </div>
+  {{template "drawer" .}}
+  {{template "modals" .}}
+  <textarea id="raw-input-store" hidden>{{.Check.RawInput}}</textarea>
+  <textarea id="input-name-store" hidden>{{.Check.InputName}}</textarea>
+  <textarea id="source-store" hidden>{{.Check.Source}}</textarea>
+  <div id="toast-region" class="toast-region" aria-live="polite"></div>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
+{{end}}

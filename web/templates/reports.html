@@ -1,0 +1,121 @@
+{{define "reports"}}
+<section class="report-section" id="report">
+  <div class="report-section-head">
+    <div>
+      <div class="section-title-row">
+        <span class="section-index">03</span>
+        <h2>检查报告</h2>
+        <span class="section-badge">双轨存证</span>
+      </div>
+      <p>自动结论与人工确认独立记录，不互相覆盖；任一方都可追溯到同一份输入。</p>
+    </div>
+    <button class="button ghost" data-copy-summary>
+      <svg viewBox="0 0 18 18" fill="none"><path d="M9 2.8v8.4M5.8 8.2 9 11.5l3.2-3.3M3.2 12.5v2.3h11.6v-2.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      复制摘要
+    </button>
+  </div>
+
+  <div class="report-grid">
+    <article class="report-card auto-report" id="report-auto">
+      <header class="report-head">
+        <div class="report-title">
+          <span class="report-mark auto">A</span>
+          <div><span class="overline">AUTOMATED FINDINGS</span><h3>自动结论</h3></div>
+        </div>
+        <span class="locked-stamp">
+          <svg viewBox="0 0 14 14" fill="none"><rect x="2.5" y="6" width="9" height="6" rx="1.2" stroke="currentColor" stroke-width="1.1"/><path d="M4.5 6V4.5a2.5 2.5 0 0 1 5 0V6" stroke="currentColor" stroke-width="1.1"/></svg>
+          已锁定
+        </span>
+      </header>
+      <div class="report-summary">
+        <span class="mini-label">自动判定</span>
+        <strong>{{if .Check.AutoLabel}}{{.Check.AutoLabel}}{{else if eq .Check.Status "cancelled"}}未生成 · 已取消{{else if eq .Check.Status "failed"}}未生成 · 已失败{{else}}分析中{{end}}</strong>
+        <span class="confidence-pill">{{if eq .Check.Status "completed"}}{{pct .Check.Confidence}}% 置信度{{else}}无置信度{{end}}</span>
+      </div>
+      <div class="finding-list">
+        {{if not .Check.Findings}}<div class="auto-empty">{{if eq .Check.Status "cancelled"}}检查在自动结论生成前被取消，未产生规则命中。{{else if eq .Check.Status "failed"}}自动分析未完成，失败前步骤仍可追溯。{{else}}规则正在运行，尚无自动结论。{{end}}</div>{{end}}
+        {{range .Check.Findings}}
+        <div class="finding {{.Severity}}">
+          <div class="finding-rail"></div>
+          <div class="finding-content">
+            <div class="finding-title-line">
+              <span class="rule-code">{{.Rule}}</span>
+              <strong>{{.Title}}</strong>
+              <span class="severity-chip {{.Severity}}">{{severity .Severity}}</span>
+              <span class="finding-score">{{pct .Confidence}}%</span>
+            </div>
+            <p>{{.Detail}}</p>
+            <div class="finding-links">
+              <button class="trace-link" data-evidence-id="{{.EvidenceID}}">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M5.5 3.5h-2v7h7v-2M8 3.5h2.5V6M10.5 3.5 6.2 7.8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                证据 {{.EvidenceID}}
+              </button>
+              <a class="trace-link" href="#attempt-history">处理步骤 ↗</a>
+            </div>
+          </div>
+        </div>
+        {{end}}
+      </div>
+      {{if eq .BoundaryCount 0}}
+      <div class="auto-empty">本次未发现无法判断的边界。</div>
+      {{end}}
+      <footer class="report-foot">
+        <span>生成器 <b>rules/v18</b> + <b>libFuzzer</b></span>
+        <span>未经人工修改</span>
+        {{if .FuzzEvidence}}<button class="text-button" data-evidence-id="{{.FuzzEvidence}}">查看最小复现输入 →</button>{{end}}
+      </footer>
+    </article>
+
+    <article class="report-card human-report">
+      <header class="report-head">
+        <div class="report-title">
+          <span class="report-mark human">H</span>
+          <div><span class="overline">HUMAN ATTESTATION</span><h3>人工确认</h3></div>
+        </div>
+        {{if .Check.HumanVerdict}}
+        <span class="verified-stamp">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M7 1.8 8.4 4l2.5.5-.5 2.5 1.4 2-2.1 1.4-.5 2.5L7 12l-2.2.9-.5-2.5-2.1-1.4 1.4-2L3.1 4.5 5.6 4 7 1.8Z" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round"/><path d="m5.5 7 1 1 2-2.2" stroke="currentColor" stroke-width="1.05" stroke-linecap="round"/></svg>
+          已签名
+        </span>
+        {{else}}<span class="pending-stamp">待确认</span>{{end}}
+      </header>
+      {{if .Check.HumanVerdict}}
+      <div class="human-report-verdict">
+        <div>
+          <span class="mini-label">人工判定</span>
+          <strong>{{.Check.HumanLabel}}</strong>
+        </div>
+        <span class="independent-tag">独立结论</span>
+      </div>
+      <div class="attestation">
+        <div class="attestation-row">
+          <span>复核人</span>
+          <strong><span class="reviewer-avatar small">{{initials .Check.HumanReviewer}}</span>{{.Check.HumanReviewer}}</strong>
+        </div>
+        <div class="attestation-row"><span>确认时间</span><strong>{{fmtDateTime .Check.HumanAt}}</strong></div>
+        <div class="attestation-row"><span>判断依据</span><strong>人工核对原始输入</strong></div>
+      </div>
+      <blockquote class="review-note">
+        <span>“</span>
+        <p>{{.Check.HumanNote}}</p>
+      </blockquote>
+      <div class="human-links">
+        <a href="#attempt-history" class="text-link">关联处理步骤 <span>↗</span></a>
+        <button class="text-link" data-open-modal="human-confirm">修订人工结论 <span>↗</span></button>
+      </div>
+      <footer class="report-foot human">
+        <span><span class="status-dot"></span> 审计签名有效</span>
+        <span>与自动报告分开存储</span>
+      </footer>
+      {{else}}
+      <div class="human-report-empty">
+        <span class="empty-seal">?</span>
+        <h4>等待人工确认</h4>
+        <p>自动结论不能代替人工签名。请对照原始输入和关键证据作出判断。</p>
+        <button class="button dark" data-open-modal="human-confirm">填写人工确认</button>
+      </div>
+      {{end}}
+    </article>
+  </div>
+</section>
+{{end}}

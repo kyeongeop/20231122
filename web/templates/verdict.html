@@ -1,0 +1,91 @@
+{{define "verdict-grid"}}
+<section class="verdict-grid" aria-label="结论摘要">
+  <article class="verdict-card auto {{if eq .Check.AutoVerdict "malicious"}}risk{{else if eq .Check.AutoVerdict "unknown"}}unknown{{end}}">
+    <div class="verdict-glow"></div>
+    <header class="verdict-head">
+      <span class="verdict-kicker">
+        <svg viewBox="0 0 18 18" fill="none"><path d="M9 2.6 14.7 5v3.8c0 3.2-2.3 5.3-5.7 6.6-3.4-1.3-5.7-3.4-5.7-6.6V5L9 2.6Z" stroke="currentColor" stroke-width="1.3"/><path d="M9 6v3.2M9 11.7v.1" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg>
+        AUTO / 自动结论
+      </span>
+      <span class="auto-state"><span class="live-dot"></span> {{if .Running}}分析中{{else}}规则已封存{{end}}</span>
+    </header>
+    <div class="verdict-main">
+      <div>
+        <span class="verdict-eyebrow">{{if .Running}}检测引擎运行中{{else}}libFuzzer + rules/v18{{end}}</span>
+        <h2>{{if eq .Check.Status "running"}}正在建立来源链{{else if eq .Check.Status "cancelled"}}检查已中途取消{{else if eq .Check.Status "failed"}}自动分析未完成{{else}}{{.Check.AutoLabel}}{{end}}</h2>
+        <p>{{if eq .Check.Status "running"}}原始输入已固定，处理步骤会持续写入证据仓。{{else if eq .Check.Status "cancelled"}}未生成自动结论；原始输入和取消前产生的证据仍可追溯。{{else if eq .Check.Status "failed"}}处理链在失败步骤前保持只读，可按恢复建议继续。{{else}}{{.Check.AutoSummary}}{{end}}</p>
+      </div>
+      {{if eq .Check.Status "completed"}}
+      <div class="confidence-dial" style="--pct: {{pct .Check.Confidence}}">
+        <div class="dial-inner">
+          <strong>{{pct .Check.Confidence}}<small>%</small></strong>
+          <span>置信度</span>
+        </div>
+      </div>
+      {{else}}
+      <div class="confidence-dial halted">
+        <div class="dial-inner"><strong>—</strong><span>{{if eq .Check.Status "running"}}分析中{{else}}无结论{{end}}</span></div>
+      </div>
+      {{end}}
+    </div>
+    <div class="trace-chain" aria-label="自动结论追溯链">
+      <span class="chain-label">结论追溯</span>
+      <a href="#source-chain" class="chain-node"><span>01</span> 原始输入</a>
+      <i>→</i>
+      {{if .Active}}<a href="#attempt-history" class="chain-node"><span>02</span> 运行 {{printf "%02d" .Active.Number}}</a>{{end}}
+      <i>→</i>
+      {{if .PrimaryEvidence}}<button class="chain-node evidence-link" data-evidence-id="{{.PrimaryEvidence}}"><span>03</span> 证据 {{.PrimaryEvidence}}</button>{{else}}<span class="chain-node"><span>03</span> 等待证据</span>{{end}}
+    </div>
+    <footer class="verdict-foot">
+      <span><b>{{.RiskCount}}</b> 项规则命中</span>
+      <span><b>{{.BoundaryCount}}</b> 项无法判断</span>
+      <span><b>{{.RetainedCount}}</b> 项证据保留</span>
+      <a href="#report-auto">查看自动报告 <span>↘</span></a>
+    </footer>
+  </article>
+
+  <article class="verdict-card human {{if eq .Check.HumanVerdict "confirmed"}}confirmed{{end}}">
+    <header class="verdict-head light">
+      <span class="verdict-kicker human-kicker">
+        <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="m6 9 2 2 4-4.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        HUMAN / 人工确认
+      </span>
+      <span class="human-seal"><span class="seal-dot"></span> 独立存证</span>
+    </header>
+    {{if .Check.HumanVerdict}}
+    <div class="human-verdict">
+      <span class="human-check">
+        <svg viewBox="0 0 24 24" fill="none"><path d="m5 12.5 4.2 4.2L19 6.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <div>
+        <span class="verdict-eyebrow">人工结论 · {{fmtTime .Check.HumanAt}}</span>
+        <h2>{{.Check.HumanLabel}}</h2>
+      </div>
+    </div>
+    <div class="reviewer-row">
+      <span class="reviewer-avatar">{{initials .Check.HumanReviewer}}</span>
+      <span class="reviewer-copy"><strong>{{.Check.HumanReviewer}}</strong><small>审核人 · 二次确认</small></span>
+      <span class="reviewer-tag">与自动结论一致</span>
+    </div>
+    <p class="human-note">{{.Check.HumanNote}}</p>
+    <footer class="human-foot">
+      <span class="signature"><svg viewBox="0 0 16 16" fill="none"><path d="M3 12c2.5-1.1 3.7-4.8 5-4.8 1 0 .6 3.7 1.8 3.7.8 0 1.2-1.2 3.2-1.2" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg> 审计签名有效</span>
+      <button class="text-button" data-open-modal="human-confirm">修订确认 <span>→</span></button>
+    </footer>
+    {{else}}
+    <div class="human-empty">
+      <span class="human-check muted">?</span>
+      <div>
+        <span class="verdict-eyebrow">尚未确认</span>
+        <h2>等待人工判断</h2>
+        <p>自动结论不可替代人工确认。请核对关键证据后给出独立结论。</p>
+      </div>
+    </div>
+    <footer class="human-foot">
+      <span class="signature">自动与人工报告分开存证</span>
+      <button class="button dark small" data-open-modal="human-confirm">开始确认</button>
+    </footer>
+    {{end}}
+  </article>
+</section>
+{{end}}

@@ -1,0 +1,144 @@
+{{define "rail-top"}}
+<section class="rail-card facts-card">
+  <header class="rail-head">
+    <span>检查信息</span>
+    <span class="integrity-badge"><span class="status-dot"></span> 完整</span>
+  </header>
+  <div class="fact-hero">
+    <span class="fact-hero-icon">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M6 3.8h8l4 4v12.4H6V3.8Z" stroke="currentColor" stroke-width="1.4"/><path d="M14 3.9v4h4M9 11h6M9 14h6M9 17h3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    </span>
+    <div>
+      <small>输入指纹</small>
+      <code title="{{.Check.RawSHA256}}">{{shortSHA .Check.RawSHA256}}</code>
+      <span>SHA-256 · {{.Check.InputSize}} B</span>
+    </div>
+  </div>
+  <dl class="fact-list">
+    <div><dt>来源</dt><dd>{{.Check.Source}}</dd></div>
+    <div><dt>输入文件</dt><dd class="ellipsis" title="{{.Check.InputName}}">{{.Check.InputName}}</dd></div>
+    <div><dt>检测引擎</dt><dd>{{.Check.FuzzerVersion}}</dd></div>
+    <div><dt>fuzz 执行</dt><dd>{{.Check.FuzzerExecs}} execs</dd></div>
+    <div><dt>证据封存</dt><dd>SQLite · WAL</dd></div>
+  </dl>
+  <a href="/checks/{{.Check.ID}}/export" class="export-row">
+    <span><svg viewBox="0 0 16 16" fill="none"><path d="M8 2.6v7.2M5.2 7.2 8 10l2.8-2.8M3 12v1.8h10V12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> 完整证据包</span>
+    <span class="mono">manifest + {{.RetainedCount}} blobs ↗</span>
+  </a>
+</section>
+{{end}}
+
+{{define "rail-boundary"}}
+{{if .Check.AmbiguousRule}}
+<section class="rail-card boundary-card">
+  <header class="rail-head amber">
+    <span>无法判断的边界</span>
+    <span class="count-badge amber">{{.BoundaryCount}}</span>
+  </header>
+  <div class="boundary-title">
+    <span class="boundary-icon">
+      <svg viewBox="0 0 22 22" fill="none"><path d="M11 3.5 19 18H3l8-14.5Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/><path d="M11 7.8v4M11 14.5v.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </span>
+    <div><span class="mono">{{.Check.AmbiguousRule}}</span><h3>Unicode 行分隔符</h3></div>
+  </div>
+  <p>{{.Check.AmbiguousNote}}</p>
+  <div class="boundary-evidence">
+    <span><b>关键证据</b> {{.BoundaryEvidence}} · U+2028 原始字节</span>
+    <button class="icon-button mini" data-evidence-id="{{.BoundaryEvidence}}" aria-label="打开边界证据">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M6 3.5 10.5 8 6 12.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+  {{if .Check.HumanVerdict}}
+  <div class="human-resolution">
+    <span class="resolution-icon">H</span>
+    <span><b>人工已处理</b><small>{{.Check.HumanLabel}} · U+2028 不构成独立注入</small></span>
+  </div>
+  {{end}}
+</section>
+{{end}}
+{{end}}
+
+{{define "rail-evidence"}}
+<section class="rail-card evidence-card">
+  <header class="rail-head">
+    <span>关键证据</span>
+    <span class="count-badge">{{.RetainedCount}} 保留</span>
+  </header>
+  <p class="rail-intro">已写入 SQLite，可独立下载并校验 SHA-256。</p>
+  <div class="evidence-list">
+    {{if not .Check.Evidence}}<div class="rail-empty">本次尝试尚未产生可封存证据。</div>{{end}}
+    {{range .Check.Evidence}}
+    <div class="evidence-item" id="evidence-{{.ID}}">
+      <button class="evidence-main" data-evidence-id="{{.ID}}">
+        <span class="evidence-type {{.Kind}}">
+          {{if eq .Kind "raw"}}
+          <svg viewBox="0 0 18 18" fill="none"><path d="M4 3h7l3 3v9H4V3Z" stroke="currentColor" stroke-width="1.2"/><path d="M11 3v3h3M6.5 9h5M6.5 12h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          {{else if eq .Kind "boundary"}}
+          <svg viewBox="0 0 18 18" fill="none"><path d="M9 2.5 15.5 15h-13L9 2.5Z" stroke="currentColor" stroke-width="1.2"/><path d="M9 6.5v3M9 12v.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          {{else if eq .Kind "fuzzer-artifact"}}
+          <svg viewBox="0 0 18 18" fill="none"><path d="m5 5-2.5 4L5 13M13 5l2.5 4L13 13M10.5 3.5l-3 11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          {{else}}
+          <svg viewBox="0 0 18 18" fill="none"><path d="M4 3h7l3 3v9H4V3Z" stroke="currentColor" stroke-width="1.2"/><path d="M6.5 8.5h5M6.5 11.5h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="12.5" cy="12.5" r="2" fill="var(--surface)"/></svg>
+          {{end}}
+        </span>
+        <span class="evidence-copy"><strong>{{.Label}}</strong><small>{{.ID}} · {{.Size}} B · {{shortSHA .SHA256}}</small></span>
+        <span class="evidence-chevron">↗</span>
+      </button>
+      <a class="evidence-download" href="/api/evidence/{{.ID}}" title="下载证据">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M7 2.3v6.1M4.7 6.5 7 8.8l2.3-2.3M2.8 10.8v1.4h8.4v-1.4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    {{end}}
+  </div>
+  <footer class="evidence-foot">
+    <span><span class="status-dot"></span> {{if .RetainedCount}}{{.RetainedCount}}/{{.RetainedCount}} 哈希校验通过{{else}}等待证据写入{{end}}</span>
+    <button class="text-button" data-open-modal="evidence-index">查看索引</button>
+  </footer>
+</section>
+{{end}}
+
+{{define "rail-recovery"}}
+<section class="rail-card recovery-card" id="recovery">
+  <header class="rail-head bad">
+    <span>失败恢复</span>
+    <span class="count-badge bad">1</span>
+  </header>
+  <div class="recovery-error">
+    <span class="mono">{{.Failure.ErrorCode}}</span>
+    <p>{{.Failure.ErrorMessage}}</p>
+  </div>
+  <ol class="recovery-actions">
+    {{range $i, $action := .Failure.NextActions}}
+    <li><span>{{add $i 1}}</span>{{$action}}</li>
+    {{end}}
+  </ol>
+  <div class="recovery-buttons">
+    <button class="button dark small" data-retry-input>从原始输入重试</button>
+    <button class="button ghost small" data-copy-recovery>复制恢复命令</button>
+  </div>
+  <a class="recovery-link" href="{{attemptURL .Check.ID .Failure.ID}}">查看失败步骤 {{.Failure.ID}} <span>→</span></a>
+</section>
+{{end}}
+
+{{define "rail-audit"}}
+<section class="rail-card audit-card">
+  <header class="rail-head">
+    <span>审计轨迹</span>
+    <button class="text-button" data-open-modal="audit">全部 {{len .Check.Audits}}</button>
+  </header>
+  <div class="audit-list">
+    {{range $i, $audit := .Check.Audits}}
+    {{if lt $i 5}}
+    <div class="audit-item">
+      <span class="audit-dot {{if eq .Event "attempt.cancelled"}}warn{{else if eq .Event "attempt.failed"}}bad{{else if eq .Event "human.confirmed"}}human{{end}}"></span>
+      <div>
+        <strong>{{.Actor}}</strong>
+        <p>{{.Detail}}</p>
+        <time>{{fmtTime .CreatedAt}} · {{.Event}}</time>
+      </div>
+    </div>
+    {{end}}
+    {{end}}
+  </div>
+</section>
+{{end}}
