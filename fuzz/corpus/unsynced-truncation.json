@@ -1,0 +1,26 @@
+{
+  "schema_version": "taintlab/v1",
+  "case_id": "fuzz-unsynced",
+  "trace_id": "fuzz-trace",
+  "source": {"label": "fuzz.source", "value": 4294967295, "tainted": true},
+  "operations": [
+    {"seq": 1, "kind": "add", "operand": 8, "width_bits": 64},
+    {"seq": 2, "kind": "trunc", "operand": 0, "width_bits": 32}
+  ],
+  "boundary": {"min": 0, "max": 2147483647},
+  "permission": {"policy": "exact_effective_token", "required_token": 7},
+  "clocks": {
+    "max_skew_ms": 1000,
+    "device_a": {
+      "device_id": "edge-a",
+      "wall_time": "2026-11-22T12:00:00+08:00",
+      "monotonic_ns": 5000000
+    },
+    "device_b": {
+      "device_id": "edge-b",
+      "wall_time": "2026-11-22T11:55:00+08:00",
+      "monotonic_ns": 9000000000
+    }
+  }
+}
+

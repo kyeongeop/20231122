@@ -1,0 +1,4 @@
+/build/
+artifacts/*.sqlite-wal
+artifacts/*.sqlite-shm
+fuzz/corpus-*
