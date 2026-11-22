@@ -1,0 +1,12 @@
+[boundary-001-long-token] upstream rejected: Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyLTQyIiwicm9sZSI6ImFkbWluIn0.c2lnbmF0dXJlLXRva2VuLXZhbHVlLTEyMzQ1Njc4OTA= tenant=acme
+[boundary-002-json] {"request_id":"req-9001","tenant":"acme","password":"hunter2-production","retry":true}
+[boundary-003-query] GET /v1/export?api_key=sk_live_9fj3k2m1q8zp&limit=100 failed with status 502
+[boundary-004-uri] dial failed postgres://reporting_user:S3cr3t-pass@db.internal.example:5432/analytics
+[boundary-005-unicode] 上游校验失败：password=秘密值-九宫格; user_id=10086; region=cn-east
+[boundary-006-aws] credential lookup failed for AKIAIOSFODNN7EXAMPLE in us-east-1
+[boundary-007-github] clone failed using ghp_7f3a9c2e1d4b6a8c0e2f5d7b9a1c3e5f7d9b for owner/repo
+[boundary-008-jwt] token refresh failed: eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjYwNDUsImV4cCI6MTcwMDAwMDAwMH0.abcdefghijklmnopqrstuvwxyz123456
+[boundary-009-email] notification failed recipient=alice.ops@example.com message_id=m-7731
+[boundary-010-pem] key parse failed -----BEGIN RSA PRIVATE KEY-----MIIEowIBAAKCAQEAtestOnlyNotARealKey-----END RSA PRIVATE KEY----- retry=false
+[boundary-011-multi] nested cause: password=pw-one token=tok-two secret=sec-three client_secret=cli-four
+[boundary-012-safe] timeout after 30s while reading chunk 7; code=E_TIMEOUT; retryable=true

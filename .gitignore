@@ -1,0 +1,5 @@
+/.serrfix*/
+/dist/
+/coverage/
+*.test
+*.out
