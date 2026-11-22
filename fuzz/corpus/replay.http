@@ -1,0 +1,21 @@
+2
+POST /v1/session HTTP/1.1
+Host: api.example.com
+Origin: [REDACTED:origin]
+Content-Type: application/json
+Content-Length: 18
+
+{"mode":"refresh"}
+
+HTTP/1.1 200 OK
+Date: Fri, 22 Nov 2026 07:04:11 GMT
+Content-Type: application/json
+Access-Control-Allow-Origin: https://app.example.com
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Methods: GET, POST, OPTIONS
+Access-Control-Allow-Headers: content-type, authorization
+Access-Control-Max-Age: 600
+Vary: Accept-Encoding
+Content-Length: 27
+
+{"ok":true,"mode":"refresh"}

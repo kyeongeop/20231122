@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>跨域策略来源检查 · Policy Trace</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="brand-word">POLICY <b>/</b> TRACE</span>
+        <span class="brand-cn">跨域策略审计</span>
+      </div>
+      <div class="topbar-meta">
+        <span class="scope-label">作用域</span>
+        <code>api.example.com</code>
+        <span class="topbar-sep"></span>
+        <span class="runtime-state"><span class="pulse"></span>证据库在线</span>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <aside class="sidebar">
+        <div class="sidebar-head">
+          <span>检查记录</span>
+          <span class="count" id="record-count">··</span>
+        </div>
+        <div class="record-list" id="record-list" aria-label="审计记录"></div>
+
+        <div class="sidebar-rule"></div>
+        <section class="case-panel" id="case-panel"></section>
+
+        <div class="sidebar-bottom">
+          <div class="stack-line"><span>引擎</span><b id="engine-label">Go</b></div>
+          <div class="stack-line"><span>证据</span><b>SQLite · WAL</b></div>
+          <div class="stack-line"><span>模糊测试</span><b>libFuzzer</b></div>
+          <div class="stack-note">每个结论绑定原始 bytes、处理状态与不可变证据哈希。</div>
+        </div>
+      </aside>
+
+      <main class="main" id="main" tabindex="-1">
+        <div class="loading-card">
+          <span class="loading-line"></span>
+          <span class="loading-line short"></span>
+          <span class="loading-line"></span>
+        </div>
+      </main>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>
