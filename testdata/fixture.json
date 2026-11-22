@@ -1,0 +1,93 @@
+{
+  "stream_id": "stream-fixture-001",
+  "config": {
+    "validity_window_ms": 300000,
+    "clock_gap_threshold_ms": 30000,
+    "max_events": 0,
+    "max_tracked_issues": 100000,
+    "batch_size": 256
+  },
+  "events": [
+    {
+      "sequence": 1,
+      "device_id": "dev-a",
+      "code": "C-1001",
+      "user_id": "u1",
+      "kind": "issue",
+      "observed_at": 1700000000000,
+      "offset_ms": 0
+    },
+    {
+      "sequence": 2,
+      "device_id": "dev-b",
+      "code": "C-1001",
+      "user_id": "u1",
+      "kind": "consume",
+      "observed_at": 1699999910000,
+      "offset_ms": 120000
+    },
+    {
+      "sequence": 4,
+      "device_id": "dev-b",
+      "code": "C-1002",
+      "user_id": "u2",
+      "kind": "issue",
+      "observed_at": 1699999920000,
+      "offset_ms": 120000
+    },
+    {
+      "sequence": 5,
+      "device_id": "dev-a",
+      "code": "C-1001",
+      "user_id": "u1",
+      "kind": "consume",
+      "observed_at": 1700000060000,
+      "offset_ms": 0
+    },
+    {
+      "sequence": 6,
+      "device_id": "dev-b",
+      "code": "C-1002",
+      "user_id": "u2",
+      "kind": "consume",
+      "observed_at": 1699999970000,
+      "offset_ms": 120000
+    },
+    {
+      "sequence": 7,
+      "device_id": "dev-a",
+      "code": "C-1002",
+      "user_id": "u2",
+      "kind": "consume",
+      "observed_at": 1700000400000,
+      "offset_ms": 0
+    },
+    {
+      "sequence": 8,
+      "device_id": "dev-b",
+      "code": "C-9999",
+      "user_id": "u9",
+      "kind": "consume",
+      "observed_at": 1699999980000,
+      "offset_ms": 120000
+    },
+    {
+      "sequence": 9,
+      "device_id": "dev-a",
+      "code": "C-2000",
+      "user_id": "u3",
+      "kind": "consume",
+      "observed_at": 1700000020000,
+      "offset_ms": 0
+    },
+    {
+      "sequence": 10,
+      "device_id": "dev-b",
+      "code": "C-2000",
+      "user_id": "u3",
+      "kind": "issue",
+      "observed_at": 1699999940000,
+      "offset_ms": 120000
+    }
+  ]
+}

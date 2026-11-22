@@ -1,0 +1,17 @@
+{
+  "config": {
+    "validity_window_ms": 300000,
+    "clock_gap_threshold_ms": 1000,
+    "max_events": 0,
+    "max_tracked_issues": 1,
+    "batch_size": 8
+  },
+  "split": 1,
+  "events": [
+    {"sequence": 1, "device_id": "dev-a", "code": "C1", "user_id": "u1", "kind": "consume", "observed_at": 1700000000000, "offset_ms": 0},
+    {"sequence": 2, "device_id": "dev-b", "code": "C1", "user_id": "u1", "kind": "issue", "observed_at": 1700000001000, "offset_ms": 5000},
+    {"sequence": 3, "device_id": "dev-a", "code": "C1", "user_id": "u1", "kind": "consume", "observed_at": 1700000000000, "offset_ms": 0},
+    {"sequence": 4, "device_id": "dev-b", "code": "C2", "user_id": "u2", "kind": "issue", "observed_at": 1700000002000, "offset_ms": 0},
+    {"sequence": 5, "device_id": "dev-b", "code": "C2", "user_id": "u2", "kind": "consume", "observed_at": 1700000400000, "offset_ms": 0}
+  ]
+}
