@@ -1,0 +1,6 @@
+SEEDAUDIT1
+ext=hook.v2
+principal=guest
+action=execute
+seed=0
+payload=crash

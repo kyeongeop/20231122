@@ -1,0 +1,23 @@
+{
+  "schema_version": 2,
+  "recovery": {
+    "id": "rec-2026-11-22-0040",
+    "captured_at": "2026-11-22T08:20:00Z",
+    "app_version": "2023.11.22",
+    "rng": {
+      "algorithm": "splitmix64",
+      "seed": "0",
+      "restored_seed": "0",
+      "state_sha256": "7d3f9d2ec4b6a8c1e5f7092b4d6a8c0e2f416385b7d9a1c3e5f7082b4d6a8c0e"
+    },
+    "target": "../build/seed_target",
+    "artifact": "artifacts/unknown-ext.bin",
+    "environment": {
+      "SEED_AUDIT_RECOVERY_SEED": "0"
+    },
+    "notes": "post-recovery replay recorded from the retained libFuzzer artifact"
+  },
+  "replay": {
+    "timeout_ms": 15000
+  }
+}

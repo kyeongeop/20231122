@@ -1,0 +1,14 @@
+{
+  "time": "2026-11-22T08:15:00Z",
+  "version": "2023.11.22-hotfix",
+  "seed": 0,
+  "seed_after_recovery": 0,
+  "rng": "splitmix64",
+  "state_hash": "7d3f9d2ec4b6a8c1e5f7092b4d6a8c0e2f416385b7d9a1c3e5f7082b4d6a8c0e",
+  "target": "../build/seed_target",
+  "input": "artifacts/unknown-ext.bin",
+  "env": {
+    "SEED_AUDIT_RECOVERY_SEED": "0"
+  },
+  "comment": "legacy recovery journal imported after process restart"
+}
