@@ -1,0 +1,16 @@
+# libFuzzer build outputs
+fuzz/libdnsfuzz.so
+fuzz/libdnsfuzz.h
+fuzz/dnsfuzz
+
+# SQLite runtime files
+artifacts/*.db
+artifacts/*.db-wal
+artifacts/*.db-shm
+
+# Crash artifacts (if any)
+artifacts/fuzz-smoke/
+crash-*
+
+# libFuzzer-generated working corpus (hand-named seeds live in corpus/)
+corpus-work/
