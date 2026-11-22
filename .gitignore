@@ -1,0 +1,5 @@
+*.sqlite-wal
+*.sqlite-shm
+artifacts/quotabypass
+artifacts/reload.sqlite
+**/testdata/fuzz/

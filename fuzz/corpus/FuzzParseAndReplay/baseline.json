@@ -1,0 +1,1 @@
+{"tenant_id":"tenant-blue","quota_count":4,"concurrent_requests":24,"rejection_response":{"status":429,"fragment":"quota_exceeded","body":"{\"error\":\"quota_exceeded\",\"retry_after\":1}"}}
