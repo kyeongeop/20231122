@@ -1,0 +1,7 @@
+{
+  "case_id": "C10-missing-token-hash",
+  "content_type": "application/json",
+  "body": "{\"code\":\"SplxlOBeZQQYbYS6WxSbIA\",\"state\":\"state-ok-v2\",\"redirect_uri\":\"https://app.example.com/oauth/callback\",\"iss\":\"https://idp.example.com/\",\"response_mode\":\"form_post\"}",
+  "source": "curated/attack/missing_integrity",
+  "expect": "DENY"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "C02-v2-allow",
+  "content_type": "application/json",
+  "body": "{\"code\":\"SplxlOBeZQQYbYS6WxSbIA\",\"state\":\"state-ok-v2\",\"redirect_uri\":\"https://app.example.com/oauth/callback\",\"iss\":\"https://idp.example.com/\",\"response_mode\":\"form_post\",\"token_hash\":\"sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08\"}",
+  "source": "curated/regression",
+  "expect": "ALLOW"
+}

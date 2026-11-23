@@ -1,0 +1,7 @@
+{
+  "case_id": "C04-cancel-orphan",
+  "content_type": "application/json",
+  "body": "{\"error\":\"access_denied\",\"error_description\":\"cancel without server flag\",\"state\":\"state-unknown-xyz\"}",
+  "source": "curated/cancellation",
+  "expect": "CANCELLED"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "C08-issuer-spoof",
+  "content_type": "application/json",
+  "body": "{\"code\":\"SplxlOBeZQQYbYS6WxSbIA\",\"state\":\"state-ok-v2\",\"redirect_uri\":\"https://app.example.com/oauth/callback\",\"iss\":\"https://idp.attacker.com/\",\"response_mode\":\"form_post\",\"token_hash\":\"sha256:deadbeef\"}",
+  "source": "curated/attack/issuer_spoofing",
+  "expect": "DENY"
+}

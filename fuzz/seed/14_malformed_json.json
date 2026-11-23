@@ -1,0 +1,7 @@
+{
+  "case_id": "C14-malformed-json",
+  "content_type": "application/json",
+  "body": "{\"code\":\"broken\",\"state\":\"state-ok-v2\",",
+  "source": "curated/attack/malformed_input",
+  "expect": "DENY"
+}

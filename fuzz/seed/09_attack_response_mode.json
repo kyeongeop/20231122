@@ -1,0 +1,7 @@
+{
+  "case_id": "C09-response-mode-fragment",
+  "content_type": "application/json",
+  "body": "{\"code\":\"SplxlOBeZQQYbYS6WxSbIA\",\"state\":\"state-ok-v2\",\"redirect_uri\":\"https://app.example.com/oauth/callback\",\"iss\":\"https://idp.example.com/\",\"response_mode\":\"fragment\",\"token_hash\":\"sha256:abc\"}",
+  "source": "curated/attack/response_mode_confusion",
+  "expect": "DENY"
+}

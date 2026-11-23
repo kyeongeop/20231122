@@ -1,0 +1,7 @@
+{
+  "case_id": "C06-redirect-crlf",
+  "content_type": "application/x-www-form-urlencoded",
+  "body": "code=SplxlOBeZQQYbYS6WxSbIA&state=state-ok-legacy&redirect_uri=https%3A%2F%2Fapp.example.com%2Foauth%2Fcallback%0D%0ALocation%3A%20https%3A%2F%2Fevil.attacker.com",
+  "source": "curated/attack/crlf_injection",
+  "expect": "DENY"
+}

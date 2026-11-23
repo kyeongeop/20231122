@@ -1,0 +1,9 @@
+# 构建产物与运行期证据
+bin/
+reports/*.db
+reports/*.md
+reports/*.txt
+fuzz/build/
+fuzz/runtime-corpus/
+fuzz/crashers/
+*.out

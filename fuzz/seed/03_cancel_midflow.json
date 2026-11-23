@@ -1,0 +1,7 @@
+{
+  "case_id": "C03-cancel-midflow",
+  "content_type": "application/x-www-form-urlencoded",
+  "body": "error=access_denied&error_description=user%20cancelled%20consent&state=state-cancel",
+  "source": "curated/cancellation",
+  "expect": "CANCELLED"
+}

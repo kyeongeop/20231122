@@ -1,0 +1,7 @@
+{
+  "case_id": "C12-duplicate-params",
+  "content_type": "application/x-www-form-urlencoded",
+  "body": "code=good-code&state=state-ok-legacy&state=state-forged&redirect_uri=https%3A%2F%2Fapp.example.com%2Foauth%2Fcallback",
+  "source": "curated/attack/parameter_pollution",
+  "expect": "DENY"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "C05-open-redirect",
+  "content_type": "application/x-www-form-urlencoded",
+  "body": "code=SplxlOBeZQQYbYS6WxSbIA&state=state-ok-legacy&redirect_uri=https%3A%2F%2Fevil.attacker.com%2Foauth%2Fcallback",
+  "source": "curated/attack/open_redirect",
+  "expect": "DENY"
+}

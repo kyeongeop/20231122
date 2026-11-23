@@ -1,0 +1,7 @@
+{
+  "case_id": "C07-state-replay",
+  "content_type": "application/x-www-form-urlencoded",
+  "body": "code=replayed-code-value&state=state-consumed&redirect_uri=https%3A%2F%2Fapp.example.com%2Foauth%2Fcallback",
+  "source": "curated/attack/replay",
+  "expect": "DENY"
+}
