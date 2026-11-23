@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>路径规范化差异 · PathScope</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <svg class="sprite" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></symbol>
+    <symbol id="i-rules" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h10M18 18h2"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="16" cy="18" r="2"/></symbol>
+    <symbol id="i-replay" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0 5-5m-5 5-5-5M4 20h16"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="12" rx="1.5"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h3"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2.8 20h18.4L12 3Z"/><path d="M12 9v5M12 17.2v.1"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.2 1.1"/><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.2-1.1"/></symbol>
+    <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3M13 15h4"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/><path d="M4 11.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></symbol>
+    <symbol id="i-fingerprint" viewBox="0 0 24 24"><path d="M5 12a7 7 0 0 1 14 0v3a8 8 0 0 1-1 4M8 12a4 4 0 0 1 8 0v2a10 10 0 0 1-1.5 5M3 10a9 9 0 0 0 .5 3M11 12v2a8 8 0 0 0 1 4M14 12v2a11 11 0 0 1-1 4"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m8 10 4 4 4-4"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></symbol>
+  </svg>
+
+  <div class="app-shell">
+    <aside class="rail">
+      <a class="brand" href="/" aria-label="PathScope 首页">
+        <span class="brand-mark"><span></span><span></span><span></span><span></span></span>
+        <span class="brand-type"><strong>PathScope</strong><small>SOURCE FORENSICS</small></span>
+      </a>
+
+      <div class="rail-kicker">WORKSPACE</div>
+      <nav class="rail-nav" aria-label="主导航">
+        <a href="#report"><svg><use href="#i-grid"/></svg><span>调查队列</span><b>07</b></a>
+        <a class="active" href="#report"><svg><use href="#i-search"/></svg><span>来源检查</span><i></i></a>
+        <a href="#evidence"><svg><use href="#i-file"/></svg><span>证据库</span><b>05</b></a>
+        <a href="#rules"><svg><use href="#i-rules"/></svg><span>规则与策略</span></a>
+      </nav>
+      <div class="rail-kicker rail-kicker-spaced">THIS REVIEW</div>
+      <div class="rail-index">
+        <a href="#report" class="rail-index-item active"><span>01</span>结论报告</a>
+        <a href="#trace" class="rail-index-item"><span>02</span>规范化轨迹</a>
+        <a href="#boundary" class="rail-index-item"><span>03</span>不可判定边界</a>
+        <a href="#provenance" class="rail-index-item"><span>04</span>来源链</a>
+      </div>
+
+      <div class="rail-foot">
+        <div class="storage-chip">
+          <span class="storage-icon"><svg><use href="#i-db"/></svg></span>
+          <span><b>SQLite · WAL</b><small><i></i> local · synced</small></span>
+        </div>
+        <div class="reviewer-chip">
+          <span class="avatar">林</span>
+          <span><b>林岚</b><small>Reviewer · L2</small></span>
+          <span class="reviewer-menu">···</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="crumbs">
+          <span>调查队列</span><span class="crumb-sep">/</span>
+          <strong id="crumb-case">PN-231122-0417</strong><span class="crumb-sep">/</span>
+          <span>来源检查</span>
+        </div>
+        <div class="topbar-right">
+          <span class="db-state" id="db-state"><i></i><span>SQLite 已同步</span></span>
+          <span class="topbar-divider"></span>
+          <button class="icon-btn" id="health-button" aria-label="检查数据库状态" title="检查 SQLite">
+            <svg><use href="#i-db"/></svg>
+          </button>
+          <button class="icon-btn" aria-label="更多操作"><span class="dots">···</span></button>
+        </div>
+      </header>
+
+      <div class="page">
+        <header class="case-head reveal">
+          <div class="eyebrow"><span class="eyebrow-mark"></span>SOURCE CHECK <span class="eyebrow-sep"></span> PATH CANONICALIZATION</div>
+          <div class="title-row">
+            <div>
+              <h1>路径规范化差异</h1>
+              <div class="case-meta">
+                <span class="status-pill" id="case-status"><i></i>待人工确认</span>
+                <span class="meta-slash">/</span>
+                <span class="mono" id="case-id">PN-231122-0417</span>
+                <span class="meta-slash">/</span>
+                <span class="severity"><svg><use href="#i-alert"/></svg>高优先级</span>
+              </div>
+            </div>
+            <div class="head-actions">
+              <button class="btn btn-ghost" id="export-button"><svg><use href="#i-download"/></svg>导出证据包</button>
+              <button class="btn btn-primary" id="rerun-button"><svg><use href="#i-replay"/></svg>重跑恢复重放</button>
+            </div>
+          </div>
+          <p class="lede">恢复后的重放出现根路径分歧；未知扩展触发兼容回退。符号链接快照缺失，越界与否保留为不可判定边界。</p>
+        </header>
+
+        <section class="metrics reveal" aria-label="案件概览">
+          <article class="metric">
+            <div class="metric-top"><span>自动结论</span><svg><use href="#i-fingerprint"/></svg></div>
+            <div class="metric-main"><strong id="metric-findings">02</strong><span>项发现</span></div>
+            <div class="metric-detail"><span class="dot amber"></span>2 项可复现 · 1 处边界</div>
+          </article>
+          <article class="metric">
+            <div class="metric-top"><span>人工确认</span><svg><use href="#i-check"/></svg></div>
+            <div class="metric-main"><strong id="metric-reviews">00</strong><span>/ 02</span></div>
+            <div class="metric-detail" id="metric-review-state"><span class="dot muted"></span>等待独立复核</div>
+          </article>
+          <article class="metric">
+            <div class="metric-top"><span>关键证据</span><svg><use href="#i-lock"/></svg></div>
+            <div class="metric-main"><strong id="metric-evidence">05</strong><span>份封存</span></div>
+            <div class="metric-detail"><span class="dot green"></span>SHA-256 全部可回查</div>
+          </article>
+          <article class="metric">
+            <div class="metric-top"><span>最近重放</span><svg><use href="#i-clock"/></svg></div>
+            <div class="metric-main"><strong id="metric-replay">#02</strong><span id="metric-replay-state">成功</span></div>
+            <div class="metric-detail mono" id="metric-replay-time">00:08:47 +08:00</div>
+          </article>
+        </section>
+
+        <div class="section-head" id="report">
+          <div><span class="section-number">01</span><h2>结论报告</h2></div>
+          <p>自动结论与人工确认分开落库，互不覆盖</p>
+        </div>
+
+        <section class="decision-grid reveal">
+          <article class="panel auto-panel">
+            <header class="panel-head">
+              <div class="panel-title">
+                <span class="panel-icon auto"><svg><use href="#i-fingerprint"/></svg></span>
+                <div><span class="micro-label">AUTOMATED</span><h3>自动结论</h3></div>
+              </div>
+              <span class="count-badge" id="auto-count">2 项发现</span>
+            </header>
+            <div class="auto-list" id="auto-findings">
+              <div class="skeleton-row"><span></span><div><i></i><i></i></div></div>
+              <div class="skeleton-row"><span></span><div><i></i><i></i></div></div>
+            </div>
+            <footer class="panel-foot">
+              <span class="foot-icon"><svg><use href="#i-rules"/></svg></span>
+              <p>由规则引擎基于 <b id="auto-step-count">5</b> 个处理步骤生成。自动结论不是人工定论。</p>
+            </footer>
+          </article>
+
+          <article class="panel human-panel">
+            <header class="panel-head">
+              <div class="panel-title">
+                <span class="panel-icon human"><svg><use href="#i-check"/></svg></span>
+                <div><span class="micro-label">HUMAN SIGN-OFF</span><h3>人工确认</h3></div>
+              </div>
+              <span class="review-state" id="human-state"><i></i>待复核</span>
+            </header>
+            <div class="manual-body">
+              <div id="manual-history" class="manual-history" hidden></div>
+              <div class="review-prompt">
+                <span class="prompt-rule"></span>
+                <p>请独立核对原始字节与两条规范化路径。人工结论会单独写入 <code>reviews</code> 表。</p>
+              </div>
+              <div class="decision-choices" role="group" aria-label="人工决定">
+                <button type="button" class="decision-choice" data-decision="confirmed">
+                  <span class="choice-check"><svg><use href="#i-check"/></svg></span>
+                  <span><b>确认差异成立</b><small>可复现且需要修复</small></span>
+                </button>
+                <button type="button" class="decision-choice" data-decision="rejected">
+                  <span class="choice-check"><svg><use href="#i-x"/></svg></span>
+                  <span><b>判为误报</b><small>行为符合预期</small></span>
+                </button>
+                <button type="button" class="decision-choice" data-decision="undecidable">
+                  <span class="choice-check"><svg><use href="#i-alert"/></svg></span>
+                  <span><b>保留为不可判定</b><small>等待补充证据</small></span>
+                </button>
+              </div>
+              <label class="review-note">
+                <span>复核备注 <em>可选，最多 2000 字</em></span>
+                <textarea id="review-note" rows="3" placeholder="记录判断依据、缺失证据或复现环境…"></textarea>
+              </label>
+              <div class="review-actions">
+                <span class="write-hint"><svg><use href="#i-lock"/></svg> append-only</span>
+                <button class="btn btn-small btn-primary" id="save-review" disabled>写入人工确认</button>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <div class="section-head" id="trace">
+          <div><span class="section-number">02</span><h2>规范化轨迹</h2></div>
+          <p>同一输入 · 两条实现路径</p>
+        </div>
+
+        <section class="diff-grid reveal">
+          <article class="panel diff-panel">
+            <header class="panel-head">
+              <div class="panel-title">
+                <span class="panel-icon neutral"><svg><use href="#i-layers"/></svg></span>
+                <div><span class="micro-label">CANONICALIZATION DIFF</span><h3>输出差异</h3></div>
+              </div>
+              <div class="legend">
+                <span><i class="legend-line legacy"></i>legacy</span>
+                <span><i class="legend-line hardened"></i>hardened</span>
+              </div>
+            </header>
+            <div class="diff-body" id="path-diff">
+              <div class="diff-skeleton"></div>
+            </div>
+            <footer class="diff-foot">
+              <span class="diff-flag"><svg><use href="#i-alert"/></svg>根界分歧</span>
+              <span>首个分歧：<code>/srv</code> 之后，legacy 越过根界</span>
+              <button class="text-link" id="trace-locate">定位来源 <svg><use href="#i-arrow"/></svg></button>
+            </footer>
+          </article>
+
+          <article class="panel raw-panel" id="evidence">
+            <header class="panel-head">
+              <div class="panel-title">
+                <span class="panel-icon raw"><svg><use href="#i-file"/></svg></span>
+                <div><span class="micro-label">ORIGINAL EVIDENCE</span><h3>原始输入</h3></div>
+              </div>
+              <button class="icon-btn bordered" id="copy-raw" title="复制原始路径"><svg><use href="#i-copy"/></svg></button>
+            </header>
+            <div class="raw-body">
+              <div class="raw-code" id="raw-code"><span class="load-line"></span></div>
+              <div class="raw-stats">
+                <span><b id="raw-size">46</b> bytes</span>
+                <span><b>1</b> decode pass</span>
+                <span><b>0</b> separator folds</span>
+              </div>
+              <div class="hash-box">
+                <span class="hash-icon"><svg><use href="#i-fingerprint"/></svg></span>
+                <span><small>SHA-256 · sealed</small><code id="raw-hash">loading…</code></span>
+                <span class="sealed"><svg><use href="#i-lock"/></svg>IMMUTABLE</span>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="panel boundary reveal" id="boundary">
+          <div class="boundary-stripe"></div>
+          <div class="boundary-head">
+            <div class="boundary-kicker"><span class="boundary-id">U-03</span><span>UNDECIDABLE BOUNDARY</span></div>
+            <span class="boundary-state"><i></i>无法判断</span>
+          </div>
+          <div class="boundary-title-row">
+            <div>
+              <h2>根边界取决于运行时符号链接状态</h2>
+              <p>词法结果越过 <code>/srv/www</code>，但原始运行没有采集 <code>/srv/www/uploads</code> 的链接目标。现有字节可支持两种相反解释，不能把任一解释写成定论。</p>
+            </div>
+            <div class="evidence-retained">
+              <span><svg><use href="#i-lock"/></svg>关键证据已保留</span>
+              <div class="ref-chips">
+                <button class="ref-chip" data-locate-step="S-00">S-00</button>
+                <button class="ref-chip" data-locate-step="S-03">S-03</button>
+                <button class="ref-chip" data-locate-step="S-06">S-06</button>
+                <button class="ref-chip" data-locate-step="S-07">S-07</button>
+              </div>
+            </div>
+          </div>
+          <div class="hypotheses">
+            <article class="hypothesis">
+              <span class="hyp-label">H1 / 可能越界</span>
+              <p>若 <code>uploads</code> 是普通目录，legacy 输出 <code>/srv/etc/passwd.unk9</code> 即真实逃逸挂载根。</p>
+              <div class="hyp-path danger"><span>/srv</span><b>/etc/passwd.unk9</b></div>
+            </article>
+            <div class="hyp-vs">VS</div>
+            <article class="hypothesis">
+              <span class="hyp-label">H2 / 可能安全</span>
+              <p>若运行时先解析到绑定挂载或受限链接，hardened 的钳制结果才代表可访问路径。</p>
+              <div class="hyp-path safe"><span>/srv/www</span><b>/etc/passwd.unk9</b></div>
+            </article>
+          </div>
+          <div class="boundary-missing">
+            <span class="missing-label">缺失证据</span>
+            <code>stat -c '%N' /srv/www/uploads</code>
+            <span class="missing-note">原始语料、解码步骤、双输出和扩展分派均已完整封存</span>
+          </div>
+          <div class="boundary-actions">
+            <button class="btn btn-ghost btn-small" id="copy-boundary"><svg><use href="#i-copy"/></svg>复制补采命令</button>
+            <button class="btn btn-small btn-dark" id="queue-boundary"><svg><use href="#i-terminal"/></svg>登记后续执行</button>
+            <span class="action-note" id="boundary-action-note">关联处置单 FU-02 · 未指派</span>
+          </div>
+        </section>
+
+        <div class="section-head" id="provenance">
+          <div><span class="section-number">03</span><h2>来源链</h2></div>
+          <p>每个结论均可回到输入字节与处理步骤</p>
+        </div>
+
+        <section class="source-grid reveal">
+          <article class="panel timeline-panel">
+            <header class="panel-head timeline-panel-head">
+              <div class="panel-title">
+                <span class="panel-icon neutral"><svg><use href="#i-link"/></svg></span>
+                <div><span class="micro-label">PROVENANCE LEDGER</span><h3>处理步骤</h3></div>
+              </div>
+              <div class="timeline-summary">
+                <span><i class="dot green"></i><b id="step-count">8</b> 步已记录</span>
+                <button class="text-link" id="show-failed">查看失败处置</button>
+              </div>
+            </header>
+            <div class="timeline" id="timeline">
+              <div class="timeline-skeleton"><span></span><div><i></i><i></i></div></div>
+              <div class="timeline-skeleton"><span></span><div><i></i><i></i></div></div>
+              <div class="timeline-skeleton"><span></span><div><i></i><i></i></div></div>
+            </div>
+            <footer class="timeline-foot">
+              <span><svg><use href="#i-db"/></svg>步骤、证据与重放记录写入同一 SQLite WAL</span>
+              <span class="mono" id="case-revision">rev 16</span>
+            </footer>
+          </article>
+
+          <aside class="side-stack">
+            <article class="panel evidence-panel">
+              <header class="panel-head compact">
+                <div class="panel-title">
+                  <span class="panel-icon raw"><svg><use href="#i-lock"/></svg></span>
+                  <div><span class="micro-label">EVIDENCE INDEX</span><h3>封存证据</h3></div>
+                </div>
+                <span class="count-badge quiet" id="evidence-count">5</span>
+              </header>
+              <div class="evidence-list" id="evidence-list">
+                <div class="evidence-skeleton"></div>
+                <div class="evidence-skeleton"></div>
+                <div class="evidence-skeleton"></div>
+              </div>
+            </article>
+
+            <article class="panel followup-panel" id="followups">
+              <header class="panel-head compact">
+                <div class="panel-title">
+                  <span class="panel-icon warn"><svg><use href="#i-terminal"/></svg></span>
+                  <div><span class="micro-label">RUNBOOK</span><h3>失败与后续操作</h3></div>
+                </div>
+                <span class="review-state warning" id="followup-count"><i></i>1 open</span>
+              </header>
+              <div class="followup-list" id="followup-list">
+                <div class="followup-skeleton"></div>
+              </div>
+            </article>
+
+            <article class="toolchain-card">
+              <span class="micro-label">CAPTURED WITH</span>
+              <div class="toolchain-badges">
+                <span><b>Go</b> 1.27.4</span>
+                <span><b>libFuzzer</b> 17.0.6</span>
+                <span><b>SQLite</b> WAL</span>
+              </div>
+              <p>target <code>pathnorm_fuzz.c:87</code></p>
+            </article>
+          </aside>
+        </section>
+
+        <footer class="page-foot">
+          <span>PathScope · source review workspace</span>
+          <span class="foot-chain"><i></i> evidence chain verified <span id="foot-updated">just now</span></span>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+
+  <dialog class="detail-dialog" id="detail-dialog">
+    <div class="dialog-head">
+      <div><span class="micro-label" id="dialog-kicker">STEP DETAIL</span><h3 id="dialog-title">处理步骤</h3></div>
+      <button class="icon-btn" id="dialog-close" aria-label="关闭"><svg><use href="#i-x"/></svg></button>
+    </div>
+    <div class="dialog-body" id="dialog-body"></div>
+  </dialog>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>
