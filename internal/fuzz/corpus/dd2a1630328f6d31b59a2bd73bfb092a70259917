@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "sample_id": "S002-"Same-tenant horizontal object reference",
+  "attack_class": "HORIZONTAL_IDOR",
+  "clocks": [
+    {"device_id"{
+  "schema_vers: "edge-gw-1", "offse

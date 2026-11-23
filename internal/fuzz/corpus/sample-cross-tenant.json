@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "sample_id": "S001-cross-tenant",
+  "title": "Cross-tenant object access with clock skew",
+  "attack_class": "CROSS_TENANT_IDOR",
+  "clocks": [
+    {"device_id": "edge-gw-1", "offset_ns": 120000000000, "uncertainty_ns": 130000000000},
+    {"device_id": "app-node-2", "offset_ns": -3000000000, "uncertainty_ns": 130000000000}
+  ],
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "EVT-0001",
+      "device_id": "edge-gw-1",
+      "raw_time": "2026-11-23T01:00:00Z",
+      "adjusted_ns": 0,
+      "actor": {
+        "user_id": "u-1001",
+        "tenant_id": "tenant-alpha",
+        "role": "member",
+        "requested_tenant_id": "tenant-alpha",
+        "resource_id": "doc-9001"
+      },
+      "http_method": "GET",
+      "path": "/v1/tenants/tenant-alpha/docs/doc-9001",
+      "decision": "ALLOW",
+      "detail": "u-1001"
+    },
+    {
+      "seq": 2,
+      "event_id": "EVT-0002",
+      "device_id": "app-node-2",
+      "raw_time": "2026-11-23T01:02:00Z",
+      "adjusted_ns": 0,
+      "actor": {
+        "user_id": "u-1001",
+        "tenant_id": "tenant-alpha",
+        "role": "member",
+        "requested_tenant_id": "tenant-beta",
+        "resource_id": "doc-7777"
+      },
+      "http_method": "GET",
+      "path": "/v1/tenants/tenant-beta/docs/doc-7777",
+      "decision": "ALLOW",
+      "detail": "u-2002"
+    }
+  ],
+  "note": "Two devices are 123 seconds apart; uncertainty window overlaps at the boundary.",
+  "input_sha256": "",
+  "created_at": "2026-11-23T00:00:00Z"
+}

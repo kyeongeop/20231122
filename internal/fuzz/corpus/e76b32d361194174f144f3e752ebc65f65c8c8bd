@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "sample_id": "S002-horizontal",
+  "title": "Same-tenant horizontal object reference",
+  "attack_class": "HORIZONTAL_IDOR",
+  "clocks": [
+    {"device_id": "edge-gw-1", "offset_ns": 0, "uncertainty_ns": 1000000},
+    {"device_id": "app-node-2", "offset_{
+  "schema_version": 1,
+  "sample_id": "S002-horizontal",
+  "title": "Same-tenant horizontal object reference",
+  "attack_class": "HORIZONTAL_IDOR",
+  ns": 0, "uncertainty_ns": 1000000}
+  ],
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "EVT-0101",
+      "device_id": "edge-gw-1",
+t horizontal object ,
+        "role": "memb"clocks": [
+  er",
+rizontal object ,
+        "role": "membe r",
+     

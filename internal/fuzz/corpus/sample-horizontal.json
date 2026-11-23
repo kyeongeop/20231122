@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "sample_id": "S002-horizontal",
+  "title": "Same-tenant horizontal object reference",
+  "attack_class": "HORIZONTAL_IDOR",
+  "clocks": [
+    {"device_id": "edge-gw-1", "offset_ns": 0, "uncertainty_ns": 1000000},
+    {"device_id": "app-node-2", "offset_ns": 0, "uncertainty_ns": 1000000}
+  ],
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "EVT-0101",
+      "device_id": "edge-gw-1",
+      "raw_time": "2026-11-23T02:00:00Z",
+      "adjusted_ns": 0,
+      "actor": {
+        "user_id": "u-1001",
+        "tenant_id": "tenant-alpha",
+        "role": "member",
+        "requested_tenant_id": "tenant-alpha",
+        "resource_id": "invoice-55"
+      },
+      "http_method": "GET",
+      "path": "/v1/tenants/tenant-alpha/invoices/invoice-55",
+      "decision": "ALLOW",
+      "detail": "u-1002"
+    },
+    {
+      "seq": 2,
+      "event_id": "EVT-0102",
+      "device_id": "app-node-2",
+      "raw_time": "2026-11-23T02:00:30Z",
+      "adjusted_ns": 0,
+      "actor": {
+        "user_id": "u-1001",
+        "tenant_id": "tenant-alpha",
+        "role": "member",
+        "requested_tenant_id": "tenant-alpha",
+        "resource_id": "invoice-56"
+      },
+      "http_method": "GET",
+      "path": "/v1/tenants/tenant-alpha/invoices/invoice-56",
+      "decision": "ALLOW",
+      "detail": "u-1001"
+    }
+  ],
+  "note": "Synchronized clocks; user accesses another user's invoice inside the tenant.",
+  "input_sha256": "",
+  "created_at": "2026-11-23T00:00:00Z"
+}

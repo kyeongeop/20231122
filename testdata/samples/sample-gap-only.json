@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "sample_id": "S003-gap-inconclusive",
+  "title": "Evidence trapped inside clock desync gap",
+  "attack_class": "CLOCK_GAP_INCONCLUSIVE",
+  "clocks": [
+    {"device_id": "edge-gw-1", "offset_ns": 10000000000, "uncertainty_ns": 15000000000},
+    {"device_id": "app-node-2", "offset_ns": -10000000000, "uncertainty_ns": 15000000000}
+  ],
+  "events": [
+    {
+      "seq": 1,
+      "event_id": "EVT-0201",
+      "device_id": "edge-gw-1",
+      "raw_time": "2026-11-23T03:00:20Z",
+      "adjusted_ns": 0,
+      "actor": {
+        "user_id": "u-3001",
+        "tenant_id": "tenant-gamma",
+        "role": "member",
+        "requested_tenant_id": "tenant-gamma",
+        "resource_id": "record-1"
+      },
+      "http_method": "GET",
+      "path": "/v1/tenants/tenant-gamma/records/record-1",
+      "decision": "ALLOW",
+      "detail": "u-3001"
+    },
+    {
+      "seq": 2,
+      "event_id": "EVT-0202",
+      "device_id": "app-node-2",
+      "raw_time": "2026-11-23T03:00:00Z",
+      "adjusted_ns": 0,
+      "actor": {
+        "user_id": "u-3001",
+        "tenant_id": "tenant-gamma",
+        "role": "member",
+        "requested_tenant_id": "tenant-gamma",
+        "resource_id": "record-2"
+      },
+      "http_method": "GET",
+      "path": "/v1/tenants/tenant-gamma/records/record-2",
+      "decision": "ALLOW",
+      "detail": "u-3001"
+    }
+  ],
+  "note": "Both events share an adjusted timestamp and fall inside the uncertainty fragment.",
+  "input_sha256": "",
+  "created_at": "2026-11-23T00:00:00Z"
+}
